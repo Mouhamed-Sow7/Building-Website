@@ -1,19 +1,20 @@
 /* Variables */
 :root {
-  --bg: #0b0f14;
-  --bg-alt: #0f141a;
-  --surface: #121821;
-  --text: #e6edf3;
-  --text-dim: #b6c2cf;
-  --primary: #4f9cf9;
-  --primary-600: #2f81f7;
-  --accent: #19d3a2;
-  --muted: #263241;
-  --border: #1f2a36;
+  --bg: #ffffff;
+  --bg-alt: #fafdf7;
+  --surface: #ffffff;
+  --text: #1f2328;
+  --text-dim: #5a6573;
+  --primary: #2e7d32; /* green */
+  --primary-600: #1b5e20; /* darker green */
+  --accent: #a5d6a7; /* light green */
+  --muted: #d8e2d6;
+  --border: #e7efe6;
   --success: #2ecc71;
   --warning: #f39c12;
   --danger: #e74c3c;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  --header-height: 64px;
 }
 
 * {
@@ -29,6 +30,7 @@ body {
   color: var(--text);
   background: linear-gradient(180deg, var(--bg), var(--bg-alt));
   line-height: 1.6;
+  padding-top: var(--header-height);
 }
 img {
   max-width: 100%;
@@ -46,10 +48,10 @@ img {
 .section-alt {
   background: radial-gradient(
       1200px 500px at 80% -10%,
-      rgba(79, 156, 249, 0.15),
+      rgba(46, 125, 50, 0.12),
       transparent 60%
     ),
-    var(--surface);
+    var(--bg-alt);
 }
 .section-header {
   text-align: center;
@@ -61,6 +63,19 @@ img {
   margin: 0 0 10px;
   letter-spacing: 0.2px;
 }
+
+.section-header h2::after {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 70%;
+  height: 2px;
+  background: var(--primary);
+  /* bottom: 2.5px; */
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+}
 .section-header p {
   color: var(--text-dim);
   margin: 0;
@@ -68,13 +83,18 @@ img {
 
 /* Header */
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 50;
-  background: rgba(15, 20, 26, 0.75);
+  background: rgba(255, 255, 255, 0.75);
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
+}
+.site-header.scrolled {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
 }
 .header-inner {
   display: flex;
@@ -97,7 +117,7 @@ img {
   width: 36px;
   height: 36px;
   background: linear-gradient(135deg, var(--primary), var(--accent));
-  color: #081019;
+  color: #ffffff;
   border-radius: 10px;
   box-shadow: var(--shadow);
   font-weight: 800;
@@ -131,7 +151,13 @@ img {
 }
 .nav-list a:hover {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.06);
+}
+/* Active state for standard links (exclude button) */
+.nav-list a:not(.btn).active,
+.nav-list a:not(.btn)[aria-current="page"] {
+  color: #fff;
+  background: linear-gradient(180deg, var(--primary), var(--primary-600));
 }
 
 /* Hero */
@@ -195,6 +221,7 @@ img {
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
   transform: rotate(-1deg);
+  background: #fff;
 }
 .media-card img {
   aspect-ratio: 16/11;
@@ -211,37 +238,57 @@ img {
 /* Cards */
 .cards {
   margin-top: 16px;
+  align-items: stretch;
 }
 .card {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.02),
-    rgba(255, 255, 255, 0.01)
-  );
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 20px;
+  padding: 18px;
   box-shadow: var(--shadow);
   transition: transform 220ms ease, border-color 220ms ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 .card:hover {
   transform: translateY(-4px);
-  border-color: rgba(79, 156, 249, 0.45);
+  border-color: rgba(46, 125, 50, 0.45);
 }
 .card-icon {
-  font-size: 26px;
+  font-size: 24px;
 }
 .card h3 {
-  margin: 6px 0 8px;
+  margin: 2px 0 4px;
 }
 .card p {
   color: var(--text-dim);
-  margin: 0 0 12px;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .card-list {
-  margin: 0;
+  margin: 4px 0 0;
   padding-left: 18px;
   color: var(--text-dim);
+}
+
+/* Make lists denser and reduce vertical height using grid columns on desktop */
+.card-list li {
+  margin: 4px 0;
+}
+@media (min-width: 900px) {
+  .card-list {
+    padding-left: 0;
+    list-style: disc inside;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 16px;
+    row-gap: 6px;
+  }
 }
 
 /* Company */
@@ -252,10 +299,10 @@ img {
   margin-top: 16px;
 }
 .badge {
-  background: rgba(79, 156, 249, 0.12);
+  background: rgba(46, 125, 50, 0.1);
   color: var(--text);
   padding: 6px 10px;
-  border: 1px solid rgba(79, 156, 249, 0.25);
+  border: 1px solid rgba(46, 125, 50, 0.25);
   border-radius: 100px;
   font-size: 12px;
 }
@@ -266,7 +313,7 @@ img {
   gap: 12px;
 }
 .feature-box {
-  background: rgba(255, 255, 255, 0.03);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 16px;
@@ -316,7 +363,7 @@ img {
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.02);
+  background: #ffffff;
   box-shadow: var(--shadow);
 }
 .project-card img {
@@ -351,13 +398,13 @@ img {
   height: 28px;
   display: inline-grid;
   place-items: center;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--bg-alt);
   border: 1px solid var(--border);
   border-radius: 8px;
 }
 
 .contact-form {
-  background: rgba(255, 255, 255, 0.03);
+  background: #ffffff;
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 16px;
@@ -379,7 +426,7 @@ label {
 }
 input,
 textarea {
-  background: #0c1219;
+  background: #ffffff;
   border: 1px solid var(--muted);
   color: var(--text);
   padding: 10px 12px;
@@ -390,10 +437,10 @@ textarea {
 input:focus,
 textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(79, 156, 249, 0.2);
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.18);
 }
 .error {
-  color: #ff7b7b;
+  color: #b42318;
   min-height: 16px;
   font-size: 12px;
 }
@@ -435,10 +482,14 @@ textarea:focus {
 .btn:hover {
   filter: brightness(1.05);
 }
+/* Ensure primary buttons remain white even after visit */
+.btn-primary:visited {
+  color: #fff;
+}
 
 /* Footer */
 .site-footer {
-  background: #0a0e13;
+  background: var(--bg-alt);
   border-top: 1px solid var(--border);
   padding: 40px 0;
 }
@@ -462,6 +513,7 @@ textarea:focus {
   padding: 6px 10px;
   border-radius: 8px;
   border: 1px solid var(--border);
+  background: #fff;
 }
 .footer-bottom {
   text-align: center;
@@ -493,7 +545,7 @@ textarea:focus {
   .nav-list {
     position: absolute;
     right: 16px;
-    top: 58px;
+    top: calc(var(--header-height) - 6px);
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 12px;

@@ -8,6 +8,16 @@ if (navToggle && navList) {
   });
 }
 
+// Header shadow on scroll
+const siteHeader = document.querySelector(".site-header");
+const onScrollHeader = () => {
+  if (!siteHeader) return;
+  if (window.scrollY > 4) siteHeader.classList.add("scrolled");
+  else siteHeader.classList.remove("scrolled");
+};
+window.addEventListener("scroll", onScrollHeader, { passive: true });
+onScrollHeader();
+
 // Footer year
 const yearEl = document.getElementById("year");
 if (yearEl) {
@@ -56,7 +66,6 @@ if (form) {
 
     const formData = Object.fromEntries(new FormData(form));
 
-    // Demo submit: you can replace this with a real endpoint or EmailJS/Netlify Forms
     try {
       form.querySelector('button[type="submit"]').disabled = true;
       await new Promise((res) => setTimeout(res, 800));
@@ -68,4 +77,44 @@ if (form) {
       form.querySelector('button[type="submit"]').disabled = false;
     }
   });
+}
+
+// Scrollspy for active nav link (single active; includes Contact button)
+const navLinks = Array.from(document.querySelectorAll('.nav-list a[href^="#"]'));
+const sections = navLinks
+  .map((link) => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
+
+const setActiveLink = (hash) => {
+  navLinks.forEach((a) => {
+    const isActive = a.getAttribute('href') === hash;
+    a.classList.toggle('active', isActive);
+    if (isActive) a.setAttribute('aria-current', 'page');
+    else a.removeAttribute('aria-current');
+  });
+};
+
+// Close mobile menu on nav click and set active immediately
+navLinks.forEach((a) => {
+  a.addEventListener('click', () => {
+    setActiveLink(a.getAttribute('href'));
+    if (navList?.classList.contains('open')) {
+      navList.classList.remove('open');
+      navToggle?.setAttribute('aria-expanded', 'false');
+    }
+  });
+});
+
+if (sections.length) {
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter((e) => e.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (visible) setActiveLink('#' + visible.target.id);
+  }, {
+    root: null,
+    rootMargin: '0px 0px -60% 0px',
+    threshold: [0.2, 0.4, 0.6, 0.8]
+  });
+  sections.forEach((sec) => observer.observe(sec));
 }
