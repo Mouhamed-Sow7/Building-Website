@@ -5,7 +5,9 @@
   --surface: #ffffff;
   --text: #1f2328;
   --text-dim: #5a6573;
+  --text-dim-a: #082c44e0;
   --primary: #2e7d32; /* green */
+  --primary-a: #17751cac;
   --primary-600: #1b5e20; /* darker green */
   --accent: #a5d6a7; /* light green */
   --muted: #d8e2d6;
@@ -15,6 +17,8 @@
   --danger: #e74c3c;
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   --header-height: 64px;
+  /* Hauteur du carrousel: ajustez à 80vh si souhaité */
+  --carousel-height: 75vh;
 }
 
 * {
@@ -159,6 +163,13 @@ img {
   color: #fff;
   background: linear-gradient(180deg, var(--primary), var(--primary-600));
 }
+/* Active state for button-style link (e.g., Contact) */
+.nav-list a.btn.active,
+.nav-list a.btn[aria-current="page"] {
+  color: #fff;
+  background: linear-gradient(180deg, var(--primary), var(--primary-600));
+  border-color: transparent;
+}
 
 /* Hero */
 .hero {
@@ -242,7 +253,7 @@ img {
 }
 .card {
   background: #ffffff;
-  border: 1px solid var(--border);
+  border: 1px solid firebrick;
   border-radius: 16px;
   padding: 18px;
   box-shadow: var(--shadow);
@@ -267,13 +278,14 @@ img {
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 .card-list {
   margin: 4px 0 0;
   padding-left: 18px;
-  color: var(--text-dim);
+  color: var(--text-dim-a);
 }
 
 /* Make lists denser and reduce vertical height using grid columns on desktop */
@@ -282,8 +294,8 @@ img {
 }
 @media (min-width: 900px) {
   .card-list {
-    padding-left: 0;
-    list-style: disc inside;
+    /* padding-left: 0; */
+    /* list-style: disc inside; */
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 16px;
@@ -299,7 +311,7 @@ img {
   margin-top: 16px;
 }
 .badge {
-  background: rgba(46, 125, 50, 0.1);
+  background: rgba(6, 156, 201, 0.356);
   color: var(--text);
   padding: 6px 10px;
   border: 1px solid rgba(46, 125, 50, 0.25);
@@ -325,6 +337,10 @@ img {
 .feature-box p {
   color: var(--text-dim);
   margin: 0;
+}
+
+.mt-14 {
+  margin-top: 14px;
 }
 
 /* DG */
@@ -374,6 +390,84 @@ img {
   padding: 10px 12px;
   color: var(--text-dim);
   font-size: 14px;
+}
+
+/* Légende visible posée en bas, en surimpression */
+.carousel .project-card figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px 14px;
+  color: #fff;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.55) 90%
+  );
+}
+
+/* Carousel */
+.carousel {
+  position: relative;
+  overflow: hidden;
+  height: var(--carousel-height);
+}
+.carousel-track {
+  display: flex;
+  transition: transform 400ms ease;
+  height: 100%;
+}
+.carousel .project-card {
+  flex: 0 0 100%;
+  min-width: 100%;
+  height: 100%;
+  position: relative;
+}
+.carousel .project-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  aspect-ratio: auto;
+}
+.carousel .project-card::after {
+  /* Coins arrondis sur l'image + légende collée en bas */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  pointer-events: none;
+}
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+.carousel-btn.prev {
+  left: 8px;
+}
+.carousel-btn.next {
+  right: 8px;
+}
+.carousel-btn:hover {
+  filter: brightness(1.05);
+}
+@media (max-width: 720px) {
+  .carousel-btn {
+    width: 34px;
+    height: 34px;
+  }
 }
 
 /* Contact */
@@ -499,6 +593,38 @@ textarea:focus {
 }
 .logo-footer {
   margin-bottom: 6px;
+}
+.site-footer .socials {
+  display: flex;
+  gap: 25px;
+  margin: 15px 0;
+  padding-top: 10px;
+}
+.site-footer .socials a {
+  text-decoration: none;
+  color: var(--primary-600);
+  padding: 5px;
+  display: block;
+  transition: ease-in-out 0.3s;
+  position: relative;
+}
+.site-footer .socials a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--primary-600);
+}
+.site-footer .socials a:hover {
+  transform: translateY(-5px);
+  transition: ease-in-out 0.3s;
+}
+
+.site-footer .socials a svg {
+  width: 35px !important;
+  height: 33px !important;
 }
 .footer-links {
   display: flex;
