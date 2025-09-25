@@ -178,6 +178,10 @@ if (projetsCarousel) {
   let currentIndex = 0;
   let timerId;
   const AUTOPLAY_MS = 3000; // autoplay speed (ms)
+  
+  // Mobile detection
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const update = () => {
     const width = projetsCarousel.clientWidth;
@@ -247,10 +251,50 @@ if (projetsCarousel) {
 
   videos.forEach((video) => {
     video.addEventListener("loadeddata", onMediaLoad, { once: true });
-    // Set videos to autoplay in carousel
-    video.autoplay = true;
+    
+    // Set video attributes for mobile compatibility
     video.muted = true;
     video.loop = true;
+    video.playsInline = true;
+    video.setAttribute("webkit-playsinline", "true");
+    video.setAttribute("playsinline", "true");
+    video.setAttribute("preload", "metadata");
+    
+    // For mobile devices, don't autoplay by default
+    if (isMobile) {
+      video.autoplay = false;
+      
+      // Ensure video shows first frame
+      video.addEventListener("loadedmetadata", () => {
+        video.currentTime = 0.1; // Show first frame
+      });
+      
+      // Add a play button overlay for mobile
+      const playButton = document.createElement("div");
+      playButton.className = "video-play-button";
+      playButton.innerHTML = "▶";
+      
+      const card = video.closest(".project-card");
+      if (card) {
+        card.style.position = "relative";
+        card.appendChild(playButton);
+        
+        playButton.addEventListener("click", () => {
+          video.play();
+          playButton.style.display = "none";
+        });
+      }
+    } else {
+      // Desktop: try autoplay
+      video.autoplay = true;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          video.currentTime = 0;
+          video.pause();
+        });
+      }
+    }
   });
 
   update();
@@ -270,7 +314,7 @@ if (projetsCarousel) {
     // Hide both elements first
     imgEl.style.display = "none";
     videoEl.style.display = "none";
-    
+
     if (isVideo) {
       videoEl.src = src;
       videoEl.style.display = "block";
@@ -280,7 +324,7 @@ if (projetsCarousel) {
       imgEl.alt = caption || "";
       imgEl.style.display = "block";
     }
-    
+
     captionEl.textContent = caption || "";
     lightbox.classList.add("open");
     lightbox.setAttribute("aria-hidden", "false");
@@ -292,11 +336,11 @@ if (projetsCarousel) {
     lightbox.classList.remove("open");
     lightbox.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
-    
+
     // Hide both elements and clear sources
     imgEl.style.display = "none";
     videoEl.style.display = "none";
-    
+
     // Pause video and clear sources
     if (videoEl.src) {
       videoEl.pause();
