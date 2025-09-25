@@ -268,19 +268,19 @@ if (projetsCarousel) {
 
   const open = (src, caption, isVideo = false) => {
     // Hide both elements first
-    imgEl.classList.add("lightbox-media");
-    videoEl.classList.add("lightbox-media");
-
+    imgEl.style.display = "none";
+    videoEl.style.display = "none";
+    
     if (isVideo) {
       videoEl.src = src;
-      videoEl.classList.remove("lightbox-media");
+      videoEl.style.display = "block";
       videoEl.play(); // Autoplay video in lightbox
     } else {
       imgEl.src = src;
       imgEl.alt = caption || "";
-      imgEl.classList.remove("lightbox-media");
+      imgEl.style.display = "block";
     }
-
+    
     captionEl.textContent = caption || "";
     lightbox.classList.add("open");
     lightbox.setAttribute("aria-hidden", "false");
@@ -292,7 +292,11 @@ if (projetsCarousel) {
     lightbox.classList.remove("open");
     lightbox.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
-
+    
+    // Hide both elements and clear sources
+    imgEl.style.display = "none";
+    videoEl.style.display = "none";
+    
     // Pause video and clear sources
     if (videoEl.src) {
       videoEl.pause();
@@ -308,7 +312,7 @@ if (projetsCarousel) {
     const image = card.querySelector("img");
     const video = card.querySelector("video");
     const caption = card.querySelector("figcaption")?.textContent?.trim();
-    
+
     if (image) {
       image.style.cursor = "pointer";
       image.addEventListener("click", (e) => {
@@ -317,7 +321,7 @@ if (projetsCarousel) {
         open(image.src, caption, false);
       });
     }
-    
+
     if (video) {
       video.style.cursor = "pointer";
       video.addEventListener("click", (e) => {
