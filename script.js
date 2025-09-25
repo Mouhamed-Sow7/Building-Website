@@ -308,15 +308,23 @@ if (projetsCarousel) {
     const image = card.querySelector("img");
     const video = card.querySelector("video");
     const caption = card.querySelector("figcaption")?.textContent?.trim();
-
+    
     if (image) {
       image.style.cursor = "pointer";
-      image.addEventListener("click", () => open(image.src, caption, false));
+      image.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        open(image.src, caption, false);
+      });
     }
-
+    
     if (video) {
       video.style.cursor = "pointer";
-      video.addEventListener("click", () => open(video.src, caption, true));
+      video.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        open(video.src, caption, true);
+      });
     }
   });
 
