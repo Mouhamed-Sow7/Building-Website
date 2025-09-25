@@ -347,7 +347,18 @@ img {
 .dg-grid {
   align-items: start;
 }
+.dg-photo {
+  max-width: 400px;
+  height: 485px;
+  /* object-fit: contain; */
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
 .dg-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 16px;
   border: 1px solid var(--border);
   box-shadow: var(--shadow);
@@ -424,12 +435,18 @@ img {
   height: 100%;
   position: relative;
 }
-.carousel .project-card img {
+.carousel .project-card img,
+.carousel .project-card video {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center center;
   aspect-ratio: auto;
+  cursor: pointer; /* clickable for lightbox */
+}
+
+.carousel .project-card video {
+  background: #000;
 }
 .carousel .project-card::after {
   /* Coins arrondis sur l'image + légende collée en bas */
@@ -470,6 +487,74 @@ img {
   }
 }
 
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 15, 10, 0.6);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 24px;
+}
+.lightbox.open {
+  display: flex;
+}
+.lightbox-content {
+  position: relative;
+  max-width: min(96vw, 1100px);
+  max-height: 80vh;
+}
+
+.lightbox img,
+.lightbox video {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  display: block;
+}
+
+.lightbox video {
+  background: #000;
+}
+
+.lightbox-media {
+  display: none;
+}
+.lightbox-caption {
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  font-weight: 600;
+}
+.lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  font-size: 22px;
+}
+.lightbox:focus {
+  outline: none;
+}
+
 /* Contact */
 .contact-grid {
   align-items: start;
@@ -480,6 +565,13 @@ img {
   padding: 0;
   display: grid;
   gap: 12px;
+}
+.contact-infos a {
+  color: var(--text-dim);
+  text-decoration: none;
+}
+.contact-infos a:hover {
+  color: var(--text);
 }
 .contact-infos li {
   display: grid;
@@ -644,6 +736,75 @@ textarea:focus {
 .footer-bottom {
   text-align: center;
   color: var(--text-dim);
+}
+
+/* Notifications */
+.notifications {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notification {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: var(--shadow);
+  min-width: 280px;
+  max-width: 400px;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 300ms ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notification.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.notification.success {
+  border-left: 4px solid var(--success);
+}
+
+.notification.error {
+  border-left: 4px solid var(--danger);
+}
+
+.notification-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.notification.success .notification-icon {
+  color: var(--success);
+}
+
+.notification.error .notification-icon {
+  color: var(--danger);
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-title {
+  font-weight: 600;
+  margin: 0 0 2px;
+  font-size: 14px;
+}
+
+.notification-message {
+  color: var(--text-dim);
+  margin: 0;
+  font-size: 13px;
 }
 
 /* Responsive */

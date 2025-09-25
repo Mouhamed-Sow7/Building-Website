@@ -1,3 +1,39 @@
+// Custom notification system
+const showNotification = (type, title, message, duration = 4000) => {
+  const container = document.getElementById("notifications");
+  if (!container) return;
+
+  const notification = document.createElement("div");
+  notification.className = `notification ${type}`;
+
+  const icon = type === "success" ? "✅" : "❌";
+
+  notification.innerHTML = `
+    <span class="notification-icon">${icon}</span>
+    <div class="notification-content">
+      <div class="notification-title">${title}</div>
+      <div class="notification-message">${message}</div>
+    </div>
+  `;
+
+  container.appendChild(notification);
+
+  // Trigger animation
+  requestAnimationFrame(() => {
+    notification.classList.add("show");
+  });
+
+  // Auto remove
+  setTimeout(() => {
+    notification.classList.remove("show");
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+      }
+    }, 300);
+  }, duration);
+};
+
 // Mobile nav toggle
 const navToggle = document.querySelector(".nav-toggle");
 const navList = document.querySelector(".nav-list");
@@ -69,10 +105,18 @@ if (form) {
     try {
       form.querySelector('button[type="submit"]').disabled = true;
       await new Promise((res) => setTimeout(res, 800));
-      alert("Merci ! Votre message a bien été envoyé.");
+      showNotification(
+        "success",
+        "Message envoyé",
+        "Votre message a bien été envoyé."
+      );
       form.reset();
     } catch (err) {
-      alert("Désolé, une erreur est survenue. Veuillez réessayer.");
+      showNotification(
+        "error",
+        "Erreur",
+        "Désolé, une erreur est survenue. Veuillez réessayer."
+      );
     } finally {
       form.querySelector('button[type="submit"]').disabled = false;
     }
@@ -133,7 +177,7 @@ if (projetsCarousel) {
   const slides = Array.from(track.children);
   let currentIndex = 0;
   let timerId;
-  const AUTOPLAY_MS = 3000; // adjust speed here (e.g. 2500/3000)
+  const AUTOPLAY_MS = 3000; // autoplay speed (ms)
 
   const update = () => {
     const width = projetsCarousel.clientWidth;
@@ -185,18 +229,103 @@ if (projetsCarousel) {
     else startAuto();
   });
 
-  // Ensure first layout after images load
+  // Ensure first layout after images and videos load
   const imgs = track.querySelectorAll("img");
+  const videos = track.querySelectorAll("video");
   let loaded = 0;
-  const onImgLoad = () => {
+  const totalMedia = imgs.length + videos.length;
+
+  const onMediaLoad = () => {
     loaded += 1;
-    if (loaded >= imgs.length) requestAnimationFrame(update);
+    if (loaded >= totalMedia) requestAnimationFrame(update);
   };
+
   imgs.forEach((img) => {
-    if (img.complete) onImgLoad();
-    else img.addEventListener("load", onImgLoad, { once: true });
+    if (img.complete) onMediaLoad();
+    else img.addEventListener("load", onMediaLoad, { once: true });
+  });
+
+  videos.forEach((video) => {
+    video.addEventListener("loadeddata", onMediaLoad, { once: true });
+    // Set videos to autoplay in carousel
+    video.autoplay = true;
+    video.muted = true;
+    video.loop = true;
   });
 
   update();
   startAuto();
 }
+
+// Lightbox for project images and videos
+(() => {
+  const lightbox = document.getElementById("lightbox");
+  if (!lightbox) return;
+  const imgEl = lightbox.querySelector("img");
+  const videoEl = lightbox.querySelector("video");
+  const captionEl = lightbox.querySelector(".lightbox-caption");
+  const closeBtn = lightbox.querySelector(".lightbox-close");
+
+  const open = (src, caption, isVideo = false) => {
+    // Hide both elements first
+    imgEl.classList.add("lightbox-media");
+    videoEl.classList.add("lightbox-media");
+
+    if (isVideo) {
+      videoEl.src = src;
+      videoEl.classList.remove("lightbox-media");
+      videoEl.play(); // Autoplay video in lightbox
+    } else {
+      imgEl.src = src;
+      imgEl.alt = caption || "";
+      imgEl.classList.remove("lightbox-media");
+    }
+
+    captionEl.textContent = caption || "";
+    lightbox.classList.add("open");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    lightbox.focus();
+  };
+
+  const close = () => {
+    lightbox.classList.remove("open");
+    lightbox.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+
+    // Pause video and clear sources
+    if (videoEl.src) {
+      videoEl.pause();
+      videoEl.removeAttribute("src");
+    }
+    if (imgEl.src) {
+      imgEl.removeAttribute("src");
+    }
+  };
+
+  // Click handlers on project images and videos
+  document.querySelectorAll("#projets .project-card").forEach((card) => {
+    const image = card.querySelector("img");
+    const video = card.querySelector("video");
+    const caption = card.querySelector("figcaption")?.textContent?.trim();
+
+    if (image) {
+      image.style.cursor = "pointer";
+      image.addEventListener("click", () => open(image.src, caption, false));
+    }
+
+    if (video) {
+      video.style.cursor = "pointer";
+      video.addEventListener("click", () => open(video.src, caption, true));
+    }
+  });
+
+  // Close interactions
+  closeBtn?.addEventListener("click", close);
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) close();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+})();
