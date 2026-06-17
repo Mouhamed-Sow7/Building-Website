@@ -1,467 +1,885 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>
-      Entreprise Sow et Freres — Construction, TP, Élevage, Agriculture,
-      Commerce, Import-Export
+      Entreprise Sow et Frères — Construction, Commerce, Agriculture, Services
+      Digitaux
     </title>
     <meta
       name="description"
-      content="Entreprise Sow et Freres: Construction de bâtiments, Travaux Publics, Élevage, Agriculture, Commerce Général, Import-Export, Services et Transport."
+      content="Entreprise Sow et Frères : Construction de bâtiments, Travaux Publics, Commerce Général, Import-Export, Agriculture, Élevage, Transport et Prestations de Services — Saint-Louis, Sénégal."
     />
-    <meta
-      property="og:title"
-      content="Entreprise Sow et Freres — Construction, TP, Élevage, Agriculture, Commerce, Import-Export"
-    />
-    <meta
-      property="og:description"
-      content="Construction de bâtiments, Travaux Publics, Élevage, Agriculture, Commerce Général, Import-Export, Services et Transport."
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="fr_FR" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="site-header">
+    <!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+    <header class="site-header" id="top">
       <div class="container header-inner">
-        <a
-          href="#accueil"
-          class="logo"
-          aria-label="Entreprise Sow et Freres Accueil"
-        >
-          <span class="logo-mark">E</span>
-          <span class="logo-text">Entreprise Sow et Freres</span>
+        <a href="#accueil" class="logo" aria-label="Entreprise Sow et Frères">
+          <span class="logo-mark">S</span>
+          <span class="logo-text">Sow <span>& Frères</span></span>
         </a>
-        <nav class="nav" aria-label="Navigation principale">
-          <button class="nav-toggle" aria-expanded="false" aria-controls="menu">
-            ☰
+        <nav aria-label="Navigation principale">
+          <button
+            class="nav-toggle"
+            aria-expanded="false"
+            aria-controls="menu"
+            aria-label="Menu"
+          >
+            <span></span><span></span><span></span>
           </button>
           <ul id="menu" class="nav-list">
             <li><a href="#accueil">Accueil</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#entreprise">Entreprise</a></li>
-            <li><a href="#dg">Directeur Général</a></li>
-            <li><a href="#projets">Projets</a></li>
-            <li>
-              <a href="#contact" class="btn btn-outline btn-small">Contact</a>
-            </li>
+            <li><a href="#services">Activités</a></li>
+            <li><a href="#galerie">Galerie</a></li>
+            <li><a href="#digital">Digital</a></li>
+            <li><a href="#entreprise">À propos</a></li>
+            <li><a href="#dg">Direction</a></li>
+            <li><a href="#contact" class="btn-nav">Contact</a></li>
           </ul>
         </nav>
       </div>
     </header>
 
-    <main>
-      <section id="accueil" class="hero section">
-        <div class="container grid grid-2">
-          <div class="hero-text">
-            <h1>Construisons l'avenir, dès aujourd'hui</h1>
+    <!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+    <section id="accueil" class="hero">
+      <div class="hero-overlay"></div>
+      <div class="container hero-inner">
+        <div class="hero-badge">
+          <i class="fa-solid fa-certificate"></i>
+          Agreement n°00935P · NINEA : 0048382831K1
+        </div>
+        <h1>Bâtir. Cultiver.<br /><span>Entreprendre.</span></h1>
+        <p class="hero-sub">
+          Entreprise multisectorielle sénégalaise fondée à Saint-Louis —
+          Construction, Commerce International, Agriculture, Élevage et
+          Prestations de Services.
+        </p>
+        <div class="hero-actions">
+          <a href="#services" class="btn btn-primary"
+            ><i class="fa-solid fa-arrow-down"></i> Nos activités</a
+          >
+          <a href="#contact" class="btn btn-ghost"
+            ><i class="fa-solid fa-paper-plane"></i> Nous contacter</a
+          >
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><strong>2013</strong><span>Fondée</span></div>
+          <div class="stat">
+            <strong>10+</strong><span>Secteurs d'activité</span>
+          </div>
+          <div class="stat">
+            <strong>Saint-Louis</strong><span>Sénégal</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-scroll"><i class="fa-solid fa-chevron-down"></i></div>
+    </section>
+
+    <!-- ═══════════════════════════ ACTIVITÉS ═══════════════════════════ -->
+    <section id="services" class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Ce que nous faisons</span>
+          <h2>Nos domaines d'activité</h2>
+          <p>
+            Une entreprise multisectorielle au service du développement local et
+            national.
+          </p>
+        </div>
+        <div class="activities-grid">
+          <article class="activity-card featured">
+            <div class="ac-icon"><i class="fa-solid fa-hard-hat"></i></div>
+            <h3>Construction & Travaux Publics</h3>
             <p>
-              Construction de bâtiments, vente de terrains et accompagnement
-              complet. De l'idée au projet livré, notre équipe vous guide à
-              chaque étape.
+              Bâtiments résidentiels, commerciaux et industriels. Travaux
+              d'infrastructure, VRD et aménagements urbains.
             </p>
-            <div class="hero-cta">
-              <a href="#services" class="btn btn-primary">Nos services</a>
-              <a href="#contact" class="btn btn-outline">Nous contacter</a>
-            </div>
-            <ul class="hero-stats">
-              <li><strong>50+</strong><span>Projets livrés</span></li>
-              <li><strong>10+</strong><span>Années d'expérience</span></li>
-              <li><strong>50 ha</strong><span>Terrains aménagés</span></li>
+            <ul>
+              <li>
+                <i class="fa-solid fa-check"></i> Maisons, immeubles & entrepôts
+              </li>
+              <li>
+                <i class="fa-solid fa-check"></i> Gros œuvre & second œuvre
+              </li>
+              <li>
+                <i class="fa-solid fa-check"></i> Gestion de chantier clé en
+                main
+              </li>
+              <li>
+                <i class="fa-solid fa-check"></i> Études techniques & plans
+              </li>
             </ul>
-          </div>
-          <div class="hero-media">
-            <div class="media-card">
-              <img
-                src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1200&auto=format&fit=crop"
-                alt="Chantier de construction moderne"
-              />
-            </div>
-            <div class="media-card floating">
-              <img
-                src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=1200&auto=format&fit=crop"
-                alt="Plan d'architecte"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+            <span class="ac-label">Activité principale</span>
+          </article>
 
-      <section id="services" class="section">
-        <div class="container">
-          <header class="section-header">
-            <h2>Nos services</h2>
+          <article class="activity-card">
+            <div class="ac-icon"><i class="fa-solid fa-globe"></i></div>
+            <h3>Commerce International</h3>
             <p>
-              Des solutions intégrées pour particuliers, promoteurs et
-              institutions.
+              Import-Export de marchandises, fournitures et équipements.
+              Représentation commerciale et sourcing international.
             </p>
-          </header>
-          <div class="cards grid grid-3">
-            <article class="card">
-              <div class="card-icon">🏗️</div>
-              <h3>Construction</h3>
-              <p>
-                Maisons, immeubles, entrepôts et ouvrages spéciaux. Respect des
-                délais, normes et budget.
-              </p>
-              <ul class="card-list">
-                <li>Clés en main</li>
-                <li>Gros oeuvre & second oeuvre</li>
-                <li>Gestion de chantier</li>
-                <li>Études techniques Pro</li>
-              </ul>
-            </article>
-            <article class="card">
-              <div class="card-icon">🌄</div>
-              <h3>Conseil & courtage foncier</h3>
-              <p>
-                Nous n'assurons pas la vente directe : nous vous conseillons et
-                mobilisons un réseau de vendeurs qualifiés
-              </p>
-              <ul class="card-list">
-                <li>
-                  Prospection <br />
-                  ciblée et sélection d'opportunités
-                </li>
-                <li>Due diligence foncière (bornage, titres, antériorités)</li>
-                <li>Négociation et sécurisation contractuelle</li>
-              </ul>
-            </article>
-            <article class="card">
-              <div class="card-icon">♻️</div>
-              <h3>Rénovation & extension</h3>
-              <p>
-                Modernisation énergétique, réaménagement d'espaces et conformité
-                aux standards actuels.
-              </p>
-              <ul class="card-list">
-                <li>Audit & conception</li>
-                <li>Travaux rapides</li>
-                <li>Garantie & suivi</li>
-
-                <li>Finitions & design intérieur</li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="entreprise" class="section section-alt">
-        <div class="container grid grid-2">
-          <div>
-            <h2>À propos de l'entreprise</h2>
-            <p>
-              Nous sommes une entreprise pluridisciplinaire, engagée pour la
-              qualité, la sécurité et la durabilité. Notre approche intègre la
-              conception, la réalisation et la gestion, pour livrer des projets
-              fiables qui valorisent votre patrimoine.
-            </p>
-            <div class="badges">
-              <span class="badge">Certifié ISO</span>
-              <span class="badge">Assurance décennale</span>
-              <span class="badge">Partenaires bancaires</span>
-            </div>
-            <h3 class="mt-14">Activités principales</h3>
-            <ul class="card-list">
-              <li>Construction de bâtiments & Travaux Publics</li>
-              <li>Élevage & Agriculture</li>
-              <li>Commerce Général & Import-Export</li>
-              <li>Prestation de services & Transport</li>
+            <ul>
+              <li><i class="fa-solid fa-check"></i> Import-Export</li>
+              <li><i class="fa-solid fa-check"></i> Commerce général</li>
+              <li><i class="fa-solid fa-check"></i> Sourcing & négociation</li>
             </ul>
-          </div>
-          <div class="feature-boxes">
-            <div class="feature-box">
-              <h4>Qualité</h4>
-              <p>
-                Matériaux sélectionnés, équipes qualifiées et contrôle continu.
-              </p>
-            </div>
-            <div class="feature-box">
-              <h4>Transparence</h4>
-              <p>
-                Devis détaillés, suivi en temps réel et engagement contractuel.
-              </p>
-            </div>
-            <div class="feature-box">
-              <h4>Durabilité</h4>
-              <p>Normes environnementales et performance énergétique.</p>
-            </div>
-            <div class="feature-box">
-              <h4>Service</h4>
-              <p>Un interlocuteur unique et un SAV réactif.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+          </article>
 
-      <section id="dg" class="section">
-        <div class="container grid grid-2 dg-grid">
-          <div class="dg-photo">
+          <article class="activity-card">
+            <div class="ac-icon"><i class="fa-solid fa-wheat-awn"></i></div>
+            <h3>Agriculture & Élevage</h3>
+            <p>
+              Production agricole, aménagement de terres, élevage bovin et
+              avicole dans la région de Saint-Louis.
+            </p>
+            <ul>
+              <li><i class="fa-solid fa-check"></i> Culture maraîchère</li>
+              <li><i class="fa-solid fa-check"></i> Élevage bovin & avicole</li>
+              <li><i class="fa-solid fa-check"></i> Aménagement agricole</li>
+            </ul>
+          </article>
+
+          <article class="activity-card">
+            <div class="ac-icon"><i class="fa-solid fa-truck"></i></div>
+            <h3>Transport & Logistique</h3>
+            <p>
+              Transport de marchandises et de personnes, logistique de chantier
+              et livraisons sur l'ensemble du territoire.
+            </p>
+            <ul>
+              <li>
+                <i class="fa-solid fa-check"></i> Transport de marchandises
+              </li>
+              <li><i class="fa-solid fa-check"></i> Logistique de chantier</li>
+              <li><i class="fa-solid fa-check"></i> Couverture nationale</li>
+            </ul>
+          </article>
+
+          <article class="activity-card">
+            <div class="ac-icon"><i class="fa-solid fa-handshake"></i></div>
+            <h3>Prestations de Services</h3>
+            <p>
+              Accompagnement personnalisé pour particuliers, entreprises et
+              institutions. Solutions sur mesure selon vos besoins.
+            </p>
+            <ul>
+              <li>
+                <i class="fa-solid fa-check"></i> Conseil & accompagnement
+              </li>
+              <li><i class="fa-solid fa-check"></i> Gestion de projets</li>
+              <li>
+                <i class="fa-solid fa-check"></i> Représentation &
+                intermédiation
+              </li>
+            </ul>
+          </article>
+
+          <article class="activity-card ac-digital">
+            <div class="ac-icon"><i class="fa-solid fa-laptop-code"></i></div>
+            <h3>Prestations Digitales</h3>
+            <p>
+              Développement web, solutions SaaS et transformation numérique —
+              pôle digital géré par le fils du DG.
+            </p>
+            <ul>
+              <li>
+                <i class="fa-solid fa-check"></i> Sites web & applications
+              </li>
+              <li>
+                <i class="fa-solid fa-check"></i> Solutions SaaS sur mesure
+              </li>
+              <li>
+                <i class="fa-solid fa-check"></i> Transformation numérique
+              </li>
+            </ul>
+            <a href="#digital" class="ac-link"
+              >En savoir plus <i class="fa-solid fa-arrow-right"></i
+            ></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════ GALERIE ═══════════════════════════ -->
+    <section id="galerie" class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Nos réalisations</span>
+          <h2>Galerie</h2>
+          <p>Quelques exemples de nos projets et activités sur le terrain.</p>
+        </div>
+
+        <!-- Filtres galerie -->
+        <div class="gallery-filters" role="tablist">
+          <button
+            class="filter-btn active"
+            data-filter="all"
+            role="tab"
+            aria-selected="true"
+          >
+            Tous
+          </button>
+          <button
+            class="filter-btn"
+            data-filter="construction"
+            role="tab"
+            aria-selected="false"
+          >
+            Construction
+          </button>
+          <button
+            class="filter-btn"
+            data-filter="agriculture"
+            role="tab"
+            aria-selected="false"
+          >
+            Agriculture
+          </button>
+          <button
+            class="filter-btn"
+            data-filter="commerce"
+            role="tab"
+            aria-selected="false"
+          >
+            Commerce
+          </button>
+          <button
+            class="filter-btn"
+            data-filter="services"
+            role="tab"
+            aria-selected="false"
+          >
+            Services
+          </button>
+        </div>
+
+        <div class="gallery-grid" id="gallery-grid">
+          <!-- Construction -->
+          <figure class="gallery-item" data-cat="construction">
             <img
-              src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?q=80&w=1200&auto=format&fit=crop"
-              alt="Portrait du Directeur Général"
+              src="src/construction/WhatsApp%20Image%202026-01-12%20at%2012.52.52.jpeg"
+              alt="Chantier de construction"
+              loading="lazy"
             />
-          </div>
-          <div class="dg-bio">
-            <h2>Mot du Directeur Général</h2>
+            <figcaption>Construction de bâtiment résidentiel</figcaption>
+          </figure>
+          <figure class="gallery-item" data-cat="construction">
+            <img
+              src="src/construction/WhatsApp%20Image%202026-01-12%20at%2012.52.52%20(2).jpeg"
+              alt="Fondations de chantier"
+              loading="lazy"
+            />
+            <figcaption>Travaux de fondation</figcaption>
+          </figure>
+          <figure class="gallery-item" data-cat="construction">
+            <img
+              src="src/construction/WhatsApp%20Image%202026-01-12%20at%2012.52.52%20(1).jpeg"
+              alt="Gros oeuvre"
+              loading="lazy"
+            />
+            <figcaption>Gros œuvre — Structure béton</figcaption>
+          </figure>
+          <figure class="gallery-item" data-cat="construction">
+            <img
+              src="src/construction/WhatsApp%20Image%202026-01-12%20at%2012.52.51.jpeg"
+              alt="Finitions intérieures"
+              loading="lazy"
+            />
+            <figcaption>Finitions intérieures</figcaption>
+          </figure>
+          <!-- Agriculture -->
+          <figure
+            class="gallery-item video-item"
+            data-cat="agriculture"
+            data-video="src/agriculture/WhatsApp%20Video%202026-06-12%20at%2015.08.27.mp4"
+          >
+            <div class="video-thumb">
+              <i class="fa-solid fa-circle-play"></i>
+              <span>Activité agricole A — Saint-Louis, 2026</span>
+            </div>
+            <figcaption>Activité agricole A — Saint-Louis, 2026</figcaption>
+          </figure>
+
+          <figure
+            class="gallery-item video-item"
+            data-cat="agriculture"
+            data-video="src/agriculture/WhatsApp%20Video%202026-06-12%20at%2015.10.11.mp4"
+          >
+            <div class="video-thumb">
+              <i class="fa-solid fa-circle-play"></i>
+              <span>Activité agricole B — Saint-Louis, 2026</span>
+            </div>
+            <figcaption>Activité agricole B — Saint-Louis, 2026</figcaption>
+          </figure>
+
+          <figure
+            class="gallery-item video-item"
+            data-cat="agriculture"
+            data-video="src/agriculture/WhatsApp%20Video%202026-06-12%20at%2015.11.37.mp4"
+          >
+            <div class="video-thumb">
+              <i class="fa-solid fa-circle-play"></i>
+              <span>Activité agricole C — Saint-Louis, 2026</span>
+            </div>
+            <figcaption>Activité agricole C — Saint-Louis, 2026</figcaption>
+          </figure>
+          <!-- Commerce -->
+          <figure class="gallery-item" data-cat="commerce">
+            <img
+              src="src/construction/WhatsApp%20Image%202026-01-12%20at%2012.52.50.jpeg"
+              alt="Import-export"
+              loading="lazy"
+            />
+            <figcaption>Logistique import-export</figcaption>
+          </figure>
+          <figure class="gallery-item" data-cat="commerce">
+            <img
+              src="src/construction/WhatsApp%20Image%202026-01-12%20at%2012.52.50%20(2).jpeg"
+              alt="Entrepôt marchandises"
+              loading="lazy"
+            />
+            <figcaption>Stockage & distribution</figcaption>
+          </figure>
+          <!-- Services -->
+          <figure class="gallery-item" data-cat="services">
+            <img
+              src="src/construction/WhatsApp%20Image%202026-01-12%20at%2012.52.50%20(1).jpeg"
+              alt="Réunion d'équipe"
+              loading="lazy"
+            />
+            <figcaption>Accompagnement & conseil</figcaption>
+          </figure>
+          <figure class="gallery-item" data-cat="services">
+            <img
+              src="src/construction/WhatsApp%20Image%202026-01-12%20at%2012.52.49.jpeg"
+              alt="Transport logistique"
+              loading="lazy"
+            />
+            <figcaption>Transport de marchandises</figcaption>
+          </figure>
+        </div>
+
+        <p class="gallery-note">
+          <i class="fa-solid fa-circle-info"></i> Ces visuels sont des
+          illustrations — remplacez-les par vos propres photos de chantiers et
+          projets.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════ PÔLE DIGITAL ═══════════════════════════ -->
+    <section id="digital" class="section digital-section">
+      <div class="container">
+        <div class="digital-inner">
+          <div class="digital-text">
+            <span class="eyebrow">Pôle numérique</span>
+            <h2>Services Digitaux</h2>
             <p>
-              « Notre mission est de construire des espaces durables, adaptés à
-              vos besoins d'aujourd'hui et de demain. La confiance de nos
-              clients est notre plus grande fierté. »
+              Dans le cadre des activités de prestation de services de
+              l'entreprise, nous gérons un pôle numérique dédié au développement
+              web et à la transformation digitale des entreprises.
             </p>
-            <div class="dg-meta">
-              <div>
-                <strong>Nom :</strong>
-                <span>Alassane Sow</span>
-              </div>
-              <div>
-                <strong>Fonction :</strong>
-                <span>Directeur Général</span>
-              </div>
-              <div>
-                <strong>Contact :</strong>
-                <a href="mailto:Entreprise-sow-et-freres@gmail.com"
-                  >Entreprise-sow-et-freres@gmail.com</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="projets" class="section section-alt">
-        <div class="container">
-          <header class="section-header">
-            <h2>Réalisations</h2>
-            <p>Une sélection de projets livrés récemment.</p>
-          </header>
-          <div class="projects">
-            <div class="carousel" data-carousel>
-              <div class="carousel-track">
-                <figure class="project-card">
-                  <img
-                    src="https://images.unsplash.com/photo-1502003148287-a82ef80a6abc?q=80&w=1200&auto=format&fit=crop"
-                    alt="Immeuble résidentiel contemporain"
-                  />
-                  <figcaption>Résidentiel — 4 500 m²</figcaption>
-                </figure>
-                <figure class="project-card">
-                  <img
-                    src="https://images.unsplash.com/photo-1487956382158-bb926046304a?q=80&w=1200&auto=format&fit=crop"
-                    alt="Lotissement et aménagement de voiries"
-                  />
-                  <figcaption>Lotissement — 30 parcelles</figcaption>
-                </figure>
-                <figure class="project-card">
-                  <img
-                    src="https://plus.unsplash.com/premium_photo-1682147020653-5fc87e1073c6?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="Bâtiment industriel"
-                  />
-                  <figcaption>Industriel — 3 200 m²</figcaption>
-                </figure>
-              </div>
-              <button
-                class="carousel-btn prev"
-                aria-label="Précédent"
-                type="button"
-              >
-                ‹
-              </button>
-              <button
-                class="carousel-btn next"
-                aria-label="Suivant"
-                type="button"
-              >
-                ›
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="section">
-        <div class="container grid grid-2 contact-grid">
-          <div>
-            <h2>Contact</h2>
-            <p>Parlez-nous de votre projet. Réponse sous 24h ouvrées.</p>
-            <ul class="contact-infos">
+            <ul class="digital-list">
               <li>
-                <span class="ci-icon">📍</span>
+                <i class="fa-solid fa-globe"></i>
                 <div>
-                  <strong>Adresse</strong>
-                  <p>Pikine, Sor Saint-Louis (Sénégal)</p>
+                  <strong>Sites web & vitrines</strong
+                  ><span
+                    >Conception et développement de sites professionnels</span
+                  >
                 </div>
               </li>
               <li>
-                <span class="ci-icon">📞</span>
+                <i class="fa-solid fa-mobile-screen"></i>
                 <div>
-                  <strong>Téléphone</strong>
-                  <p><a href="tel:+33123456789">+221 77 150 39 02</a></p>
+                  <strong>Applications web & mobiles</strong
+                  ><span>PWA, applications fullstack React/Node.js</span>
                 </div>
               </li>
               <li>
-                <span class="ci-icon">✉️</span>
+                <i class="fa-solid fa-cloud"></i>
                 <div>
-                  <strong>Email</strong>
-                  <p>
-                    <a href="mailto:Entreprise-sow-et-freres@gmail.com"
-                      >Entreprise-sow-et-freres@gmail.com</a
-                    >
-                  </p>
+                  <strong>Solutions SaaS</strong
+                  ><span>DerewolPrint — gestion d'impression par QR code</span>
                 </div>
               </li>
               <li>
-                <span class="ci-icon">⏱️</span>
+                <i class="fa-solid fa-robot"></i>
                 <div>
-                  <strong>Horaires</strong>
-                  <p>Lun–Ven: 9h–18h</p>
+                  <strong>Intégration IA</strong
+                  ><span>Outils boostés à l'intelligence artificielle</span>
                 </div>
               </li>
             </ul>
+            <div class="digital-actions">
+              <a
+                href="https://mouhamedsow.digitalesf.com"
+                target="_blank"
+                class="btn btn-primary"
+                ><i class="fa-solid fa-arrow-up-right-from-square"></i> Voir le
+                portfolio</a
+              >
+              <a href="#contact" class="btn btn-outline">Demander un devis</a>
+            </div>
           </div>
-          <div>
-            <form id="contact-form" class="contact-form" novalidate>
-              <div class="form-row">
-                <div class="form-field">
-                  <label for="name">Nom complet</label>
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="Votre nom"
-                    required
-                  />
-                  <small class="error" aria-live="polite"></small>
-                </div>
-                <div class="form-field">
-                  <label for="email">Email</label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="vous@exemple.com"
-                    required
-                  />
-                  <small class="error" aria-live="polite"></small>
-                </div>
+          <div class="digital-projects">
+            <div class="dp-card">
+              <div class="dp-icon"><i class="fa-solid fa-print"></i></div>
+              <div>
+                <strong>DerewolPrint</strong>
+                <span>SaaS · Gestion d'impression par QR Code</span>
+                <a
+                  href="https://derewol.digitalesf.com"
+                  target="_blank"
+                  class="dp-link"
+                  >derewol.digitalesf.com
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i
+                ></a>
               </div>
-              <div class="form-row">
-                <div class="form-field">
-                  <label for="phone">Téléphone (optionnel)</label>
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    placeholder="+33 ..."
-                  />
-                </div>
-                <div class="form-field">
-                  <label for="subject">Sujet</label>
-                  <input
-                    id="subject"
-                    name="subject"
-                    type="text"
-                    placeholder="Objet de votre demande"
-                    required
-                  />
-                  <small class="error" aria-live="polite"></small>
-                </div>
+            </div>
+            <div class="dp-card">
+              <div class="dp-icon">
+                <i class="fa-solid fa-boxes-stacked"></i>
               </div>
+              <div>
+                <strong>SmartStock</strong>
+                <span>PWA · Gestion commerciale mobile-first</span>
+                <a
+                  href="https://smartstock-pwa-cyan.vercel.app"
+                  target="_blank"
+                  class="dp-link"
+                  >Voir l'application
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i
+                ></a>
+              </div>
+            </div>
+            <div class="dp-card">
+              <div class="dp-icon"><i class="fa-solid fa-clock"></i></div>
+              <div>
+                <strong>SmartPointage</strong>
+                <span>Fullstack · Système de pointage QR par agent</span>
+                <a
+                  href="https://smartpointage.digitalesf.com"
+                  target="_blank"
+                  class="dp-link"
+                  >smartpointage.digitalesf.com
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i
+                ></a>
+              </div>
+            </div>
+            <div class="dp-card">
+              <div class="dp-icon"><i class="fa-solid fa-utensils"></i></div>
+              <div>
+                <strong>RestoPlus</strong>
+                <span>Web · Commande en ligne pour restaurant</span>
+                <a
+                  href="https://restoplus-lakora.onrender.com"
+                  target="_blank"
+                  class="dp-link"
+                  >Voir le projet
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════ À PROPOS ═══════════════════════════ -->
+    <section id="entreprise" class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Qui sommes-nous</span>
+          <h2>L'Entreprise</h2>
+        </div>
+        <div class="about-grid">
+          <div class="about-text">
+            <p>
+              Fondée en 2013 à Saint-Louis, Sénégal, l'Entreprise Sow et Frères
+              est une structure multisectorielle intervenant dans la
+              construction, le commerce, l'agriculture, le transport et les
+              prestations de services. Enregistrée sous le numéro NINEA
+              0048382831K1, l'entreprise est en constante évolution et prévoit
+              d'étendre ses activités et son organisation dans les années à
+              venir.
+            </p>
+            <div class="about-badges">
+              <span class="badge"
+                ><i class="fa-solid fa-file-certificate"></i> Agreement
+                n°00935P</span
+              >
+              <span class="badge"
+                ><i class="fa-solid fa-hashtag"></i> NINEA : 0048382831K1</span
+              >
+              <span class="badge"
+                ><i class="fa-solid fa-building-columns"></i> RC : SN-STL–2013–A
+                0647</span
+              >
+            </div>
+          </div>
+          <div class="about-values">
+            <div class="value-box">
+              <i class="fa-solid fa-shield-halved"></i>
+              <h4>Fiabilité</h4>
+              <p>
+                Des engagements tenus, des délais respectés et une communication
+                transparente à chaque étape.
+              </p>
+            </div>
+            <div class="value-box">
+              <i class="fa-solid fa-leaf"></i>
+              <h4>Durabilité</h4>
+              <p>
+                Des pratiques responsables dans tous nos domaines d'activité,
+                pour un développement durable.
+              </p>
+            </div>
+            <div class="value-box">
+              <i class="fa-solid fa-users"></i>
+              <h4>Proximité</h4>
+              <p>
+                Une équipe locale ancrée dans le tissu économique de Saint-Louis
+                et du Sénégal.
+              </p>
+            </div>
+            <div class="value-box">
+              <i class="fa-solid fa-rocket"></i>
+              <h4>Innovation</h4>
+              <p>
+                L'intégration du numérique dans nos services pour accompagner la
+                transition digitale.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════ DG ═══════════════════════════ -->
+    <section id="dg" class="section section-alt">
+      <div class="container">
+        <div class="dg-inner">
+          <div class="dg-photo">
+            <!-- Photo du DG stockée dans le dossier src/photo dg/ -->
+            <img
+              src="src/photo%20dg/WhatsApp%20Image%202026-06-12%20at%2015.30.00.jpeg"
+              alt="Portrait du Directeur Général"
+              loading="lazy"
+              style="
+                width: 200px;
+                border-radius: 50%;
+                border: 4px solid var(--gold);
+                margin: 0 auto 16px;
+                display: block;
+              "
+            />
+            <div class="dg-name-card">
+              <strong>Alassane SOW</strong>
+              <span>Directeur Général</span>
+            </div>
+          </div>
+          <div class="dg-text">
+            <span class="eyebrow">Mot du Directeur Général</span>
+            <h2>Notre vision</h2>
+            <blockquote>
+              "Depuis la fondation de notre entreprise, notre ambition est de
+              contribuer concrètement au développement du Sénégal — que ce soit
+              par la construction de bâtiments durables, la valorisation des
+              terres, ou l'accompagnement des entrepreneurs locaux. Nous croyons
+              en une entreprise familiale, ancrée dans les valeurs du travail et
+              de la solidarité, tournée vers l'avenir."
+            </blockquote>
+            <p class="dg-caption">
+              — Alassane SOW, Fondateur & Directeur Général
+            </p>
+            <div class="dg-contact">
+              <a href="tel:+221771503902"
+                ><i class="fa-solid fa-phone"></i> +221 77 150 39 02</a
+              >
+              <a href="https://t.me/+221771503902" target="_blank"
+                ><i class="fa-brands fa-telegram"></i> Telegram</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════ CONTACT ═══════════════════════════ -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Travaillons ensemble</span>
+          <h2>Nous contacter</h2>
+          <p>
+            Pour tout projet de construction, demande commerciale ou prestation
+            de service.
+          </p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-info">
+            <div class="ci-item">
+              <i class="fa-solid fa-location-dot"></i>
+              <div>
+                <strong>Siège social</strong>
+                <p>
+                  Pikine Gouye Mbargou prolongé, Saint-Louis, Sénégal (BP 5876)
+                </p>
+              </div>
+            </div>
+            <div class="ci-item">
+              <i class="fa-solid fa-phone"></i>
+              <div>
+                <strong>Téléphone</strong>
+                <p><a href="tel:+221771503902">+221 77 150 39 02</a></p>
+              </div>
+            </div>
+            <div class="ci-item">
+              <i class="fa-solid fa-envelope"></i>
+              <div>
+                <strong>Email</strong>
+                <p>
+                  <a href="mailto:contact@digitalesf.com"
+                    >contact@digitalesf.com</a
+                  >
+                </p>
+              </div>
+            </div>
+            <div class="ci-item">
+              <i class="fa-solid fa-clock"></i>
+              <div>
+                <strong>Horaires</strong>
+                <p>Lun–Ven : 8h–18h / Sam : 8h–13h</p>
+              </div>
+            </div>
+            <div class="contact-socials">
+              <a
+                href="https://t.me/+221771503902"
+                target="_blank"
+                aria-label="Telegram"
+                ><i class="fa-brands fa-telegram"></i
+              ></a>
+              <a
+                href="https://www.facebook.com/share/16AHF4o4Vd/"
+                target="_blank"
+                aria-label="Facebook"
+                ><i class="fa-brands fa-facebook-f"></i
+              ></a>
+              <a
+                href="https://www.instagram.com/alassanesow775"
+                target="_blank"
+                aria-label="Instagram"
+                ><i class="fa-brands fa-instagram"></i
+              ></a>
+              <a
+                href="https://wa.me/221771503902"
+                target="_blank"
+                aria-label="WhatsApp"
+                ><i class="fa-brands fa-whatsapp"></i
+              ></a>
+            </div>
+          </div>
+          <form id="contact-form" class="contact-form" novalidate>
+            <div class="form-row">
               <div class="form-field">
-                <label for="message">Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="5"
-                  placeholder="Décrivez votre projet"
+                <label for="name">Nom complet *</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Votre nom"
                   required
-                ></textarea>
+                />
                 <small class="error" aria-live="polite"></small>
               </div>
-              <button type="submit" class="btn btn-primary btn-block">
-                Envoyer la demande
-              </button>
-              <p class="form-note">
-                En envoyant, vous acceptez notre politique de confidentialité.
-              </p>
-            </form>
-          </div>
+              <div class="form-field">
+                <label for="email">Email *</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="vous@exemple.com"
+                  required
+                />
+                <small class="error" aria-live="polite"></small>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label for="phone">Téléphone</label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="+221 ..."
+                />
+              </div>
+              <div class="form-field">
+                <label for="subject">Domaine d'intérêt *</label>
+                <select id="subject" name="subject" required>
+                  <option value="">Sélectionnez...</option>
+                  <option>Construction / Travaux Publics</option>
+                  <option>Commerce / Import-Export</option>
+                  <option>Agriculture / Élevage</option>
+                  <option>Transport / Logistique</option>
+                  <option>Services Digitaux</option>
+                  <option>Autre prestation</option>
+                </select>
+                <small class="error" aria-live="polite"></small>
+              </div>
+            </div>
+            <div class="form-field">
+              <label for="message">Votre message *</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                placeholder="Décrivez votre projet ou demande..."
+                required
+              ></textarea>
+              <small class="error" aria-live="polite"></small>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              <i class="fa-solid fa-paper-plane"></i> Envoyer la demande
+            </button>
+            <p class="form-note">
+              Réponse sous 24–48h. Tous les champs marqués * sont obligatoires.
+            </p>
+          </form>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
 
+    <!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
     <footer class="site-footer">
       <div class="container footer-grid">
-        <div>
+        <div class="footer-brand">
           <div class="logo logo-footer">
-            <span class="logo-mark">E</span>
-            <span class="logo-text">Entreprise Sow et Freres</span>
+            <span class="logo-mark">S</span>
+            <span class="logo-text">Sow <span>& Frères</span></span>
           </div>
-          <p>Construire durablement, valoriser vos terrains et vos idées.</p>
-          <div class="socials" aria-label="Réseaux sociaux">
-            <a href="#" aria-label="LinkedIn" title="LinkedIn">
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-6.7c0-1.6-.03-3.7-2.25-3.7-2.26 0-2.6 1.76-2.6 3.58V24h-4V8z"
-                />
-              </svg>
-            </a>
-            <a href="#" aria-label="Facebook" title="Facebook">
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  d="M22.675 0H1.325C.593 0 0 .593 0 1.326v21.348C0 23.407.593 24 1.325 24h11.49V14.706H9.691v-3.62h3.124V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.588l-.467 3.62h-3.12V24h6.116C23.407 24 24 23.407 24 22.674V1.326C24 .593 23.407 0 22.675 0z"
-                />
-              </svg>
-            </a>
-            <a href="#" aria-label="Twitter" title="Twitter">
-              <svg
-                width="22"
-                height="22"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  d="M24 4.557a9.83 9.83 0 0 1-2.828.775A4.932 4.932 0 0 0 23.337 3c-.951.564-2.005.974-3.127 1.195A4.916 4.916 0 0 0 16.616 3c-2.72 0-4.924 2.205-4.924 4.924 0 .386.044.76.127 1.122C7.728 8.89 4.1 6.92 1.671 3.905a4.822 4.822 0 0 0-.666 2.475c0 1.708.87 3.213 2.19 4.096a4.903 4.903 0 0 1-2.23-.616v.062c0 2.385 1.697 4.374 3.95 4.827a4.935 4.935 0 0 1-2.224.084c.626 1.953 2.444 3.376 4.6 3.417A9.867 9.867 0 0 1 0 19.54a13.94 13.94 0 0 0 7.548 2.212c9.057 0 14.01-7.507 14.01-14.01 0-.214-.005-.426-.014-.637A10.01 10.01 0 0 0 24 4.557z"
-                />
-              </svg>
-            </a>
+          <p>
+            Entreprise multisectorielle sénégalaise — Construire, cultiver et
+            entreprendre depuis 2013.
+          </p>
+          <div class="footer-socials">
+            <a
+              href="https://t.me/+221771503902"
+              target="_blank"
+              aria-label="Telegram"
+              ><i class="fa-brands fa-telegram"></i
+            ></a>
+            <a
+              href="https://www.facebook.com/share/16AHF4o4Vd/"
+              target="_blank"
+              aria-label="Facebook"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+            <a
+              href="https://www.instagram.com/alassanesow775"
+              target="_blank"
+              aria-label="Instagram"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a
+              href="https://wa.me/221771503902"
+              target="_blank"
+              aria-label="WhatsApp"
+              ><i class="fa-brands fa-whatsapp"></i
+            ></a>
           </div>
         </div>
-        <div class="footer-links">
-          <a href="#services">Services</a>
-          <a href="#entreprise">Entreprise</a>
-          <a href="#projets">Projets</a>
+        <div class="footer-nav">
+          <h4>Navigation</h4>
+          <a href="#services">Activités</a>
+          <a href="#galerie">Galerie</a>
+          <a href="#digital">Digital</a>
+          <a href="#entreprise">À propos</a>
           <a href="#contact">Contact</a>
         </div>
-        <div class="footer-bottom">
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p><i class="fa-solid fa-phone"></i> +221 77 150 39 02</p>
+          <p><i class="fa-solid fa-envelope"></i> contact@digitalesf.com</p>
+          <p><i class="fa-solid fa-location-dot"></i> Saint-Louis, Sénégal</p>
+        </div>
+        <div class="footer-digital">
+          <h4>Pôle Digital</h4>
+          <a href="https://mouhamedsow.digitalesf.com" target="_blank"
+            >Portfolio dev <i class="fa-solid fa-arrow-up-right-from-square"></i
+          ></a>
+          <a href="https://derewol.digitalesf.com" target="_blank"
+            >DerewolPrint <i class="fa-solid fa-arrow-up-right-from-square"></i
+          ></a>
+          <a href="https://smartpointage.digitalesf.com" target="_blank"
+            >SmartPointage <i class="fa-solid fa-arrow-up-right-from-square"></i
+          ></a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="container">
           <small
-            >© <span id="year"></span> Entreprise Sow et Freres. Tous droits
+            >© <span id="year"></span> Entreprise Sow et Frères — Tous droits
             réservés.</small
+          >
+          <small
+            >Pôle digital géré par
+            <a href="https://mouhamedsow.digitalesf.com" target="_blank"
+              >Mouhamed SOW</a
+            ></small
           >
         </div>
       </div>
     </footer>
+
+    <!-- Lightbox -->
+    <div
+      id="lightbox"
+      class="lightbox"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      tabindex="-1"
+    >
+      <button class="lightbox-close" aria-label="Fermer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <img alt="" />
+      <p class="lightbox-caption"></p>
+    </div>
+
+    <!-- Notifications -->
+    <div id="notifications" class="notifications" aria-live="polite"></div>
+
+    <div
+      id="video-modal"
+      class="video-modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+    >
+      <div class="video-modal-inner">
+        <button class="video-modal-close" aria-label="Fermer">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <video id="modal-video" controls playsinline preload="metadata"></video>
+      </div>
+    </div>
 
     <script src="script.js"></script>
   </body>

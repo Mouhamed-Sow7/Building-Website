@@ -23,22 +23,18 @@ const showNotification = (type, title, message, duration = 4000) => {
 
 // ── Header scroll ─────────────────────────────────────────────
 const header = document.querySelector(".site-header");
-window.addEventListener(
-  "scroll",
-  () => {
-    header?.classList.toggle("scrolled", window.scrollY > 4);
-  },
-  { passive: true },
-);
+window.addEventListener("scroll", () => {
+  header?.classList.toggle("scrolled", window.scrollY > 4);
+}, { passive: true });
 
 // ── Mobile nav ────────────────────────────────────────────────
 const navToggle = document.querySelector(".nav-toggle");
-const navList = document.querySelector(".nav-list");
+const navList   = document.querySelector(".nav-list");
 navToggle?.addEventListener("click", () => {
   const open = navList.classList.toggle("open");
   navToggle.setAttribute("aria-expanded", String(open));
 });
-document.querySelectorAll(".nav-list a").forEach((a) => {
+document.querySelectorAll(".nav-list a").forEach(a => {
   a.addEventListener("click", () => {
     navList.classList.remove("open");
     navToggle?.setAttribute("aria-expanded", "false");
@@ -50,47 +46,35 @@ const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
 // ── Scrollspy ─────────────────────────────────────────────────
-const navLinks = Array.from(
-  document.querySelectorAll('.nav-list a[href^="#"]'),
-);
-const setActive = (hash) =>
-  navLinks.forEach((a) => {
-    const isActive = a.getAttribute("href") === hash;
-    a.classList.toggle("active", isActive);
-    isActive
-      ? a.setAttribute("aria-current", "page")
-      : a.removeAttribute("aria-current");
-  });
+const navLinks = Array.from(document.querySelectorAll('.nav-list a[href^="#"]'));
+const setActive = (hash) => navLinks.forEach(a => {
+  const isActive = a.getAttribute("href") === hash;
+  a.classList.toggle("active", isActive);
+  isActive ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current");
+});
 if (navLinks.length) {
   const sections = navLinks
-    .map((a) => document.querySelector(a.getAttribute("href")))
+    .map(a => document.querySelector(a.getAttribute("href")))
     .filter(Boolean);
-  const obs = new IntersectionObserver(
-    (entries) => {
-      const visible = entries
-        .filter((e) => e.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible) setActive("#" + visible.target.id);
-    },
-    { rootMargin: "0px 0px -45% 0px", threshold: [0.1, 0.4, 0.7] },
-  );
-  sections.forEach((s) => obs.observe(s));
+  const obs = new IntersectionObserver(entries => {
+    const visible = entries.filter(e => e.isIntersecting)
+      .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (visible) setActive("#" + visible.target.id);
+  }, { rootMargin: "0px 0px -45% 0px", threshold: [0.1, 0.4, 0.7] });
+  sections.forEach(s => obs.observe(s));
 }
 
 // ── Galerie — filtres ─────────────────────────────────────────
 const filterBtns = document.querySelectorAll(".filter-btn");
 const galleryItems = document.querySelectorAll(".gallery-item");
 
-filterBtns.forEach((btn) => {
+filterBtns.forEach(btn => {
   btn.addEventListener("click", () => {
-    filterBtns.forEach((b) => {
-      b.classList.remove("active");
-      b.setAttribute("aria-selected", "false");
-    });
+    filterBtns.forEach(b => { b.classList.remove("active"); b.setAttribute("aria-selected", "false"); });
     btn.classList.add("active");
     btn.setAttribute("aria-selected", "true");
     const filter = btn.dataset.filter;
-    galleryItems.forEach((item) => {
+    galleryItems.forEach(item => {
       const match = filter === "all" || item.dataset.cat === filter;
       item.classList.toggle("hidden", !match);
     });
@@ -98,15 +82,14 @@ filterBtns.forEach((btn) => {
 });
 
 // ── Lightbox ──────────────────────────────────────────────────
-const lightbox = document.getElementById("lightbox");
-const lbImg = lightbox?.querySelector("img");
-const lbCaption = lightbox?.querySelector(".lightbox-caption");
-const lbClose = lightbox?.querySelector(".lightbox-close");
+const lightbox    = document.getElementById("lightbox");
+const lbImg       = lightbox?.querySelector("img");
+const lbCaption   = lightbox?.querySelector(".lightbox-caption");
+const lbClose     = lightbox?.querySelector(".lightbox-close");
 
 const openLightbox = (src, caption) => {
   if (!lightbox) return;
-  lbImg.src = src;
-  lbImg.alt = caption || "";
+  lbImg.src = src; lbImg.alt = caption || "";
   lbCaption.textContent = caption || "";
   lightbox.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
@@ -119,20 +102,16 @@ const closeLightbox = () => {
   lbImg.removeAttribute("src");
 };
 
-document.querySelectorAll(".gallery-item").forEach((item) => {
-  const img = item.querySelector("img");
+document.querySelectorAll(".gallery-item").forEach(item => {
+  const img     = item.querySelector("img");
   const caption = item.querySelector("figcaption")?.textContent?.trim();
   if (!img) return;
   img.style.cursor = "pointer";
   img.addEventListener("click", () => openLightbox(img.src, caption));
 });
 lbClose?.addEventListener("click", closeLightbox);
-lightbox?.addEventListener("click", (e) => {
-  if (e.target === lightbox) closeLightbox();
-});
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeLightbox();
-});
+lightbox?.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeLightbox(); });
 
 // ── Formulaire contact ────────────────────────────────────────
 // ⚙️  CONFIGURATION — Remplace par ton endpoint Render/Node.js
@@ -141,16 +120,13 @@ const BACKEND_URL = "https://portfolio-2nd-x3kv.onrender.com/send";
 const form = document.getElementById("contact-form");
 if (form) {
   const validators = {
-    name: (v) =>
-      v.trim().length >= 2 || "Veuillez entrer votre nom (min. 2 caractères).",
-    email: (v) => /.+@.+\..+/.test(v) || "Veuillez entrer un email valide.",
-    subject: (v) => v.trim().length >= 2 || "Veuillez sélectionner un domaine.",
-    message: (v) =>
-      v.trim().length >= 10 ||
-      "Votre message est trop court (min. 10 caractères).",
+    name:    v => v.trim().length >= 2    || "Veuillez entrer votre nom (min. 2 caractères).",
+    email:   v => /.+@.+\..+/.test(v)    || "Veuillez entrer un email valide.",
+    subject: v => v.trim().length >= 2   || "Veuillez sélectionner un domaine.",
+    message: v => v.trim().length >= 10  || "Votre message est trop court (min. 10 caractères).",
   };
 
-  const attachValidation = (id) => {
+  const attachValidation = id => {
     const input = form.querySelector(`#${id}`);
     const error = input?.parentElement?.querySelector(".error");
     if (!input || !error) return null;
@@ -164,23 +140,20 @@ if (form) {
     return validate;
   };
 
-  const fieldValidators = ["name", "email", "subject", "message"]
-    .map(attachValidation)
-    .filter(Boolean);
+  const fieldValidators = ["name", "email", "subject", "message"].map(attachValidation).filter(Boolean);
 
-  form.addEventListener("submit", async (e) => {
+  form.addEventListener("submit", async e => {
     e.preventDefault();
-    const allValid = fieldValidators.every((fn) => fn());
+    const allValid = fieldValidators.every(fn => fn());
     if (!allValid) return;
 
     const btn = form.querySelector('button[type="submit"]');
     btn.disabled = true;
-    btn.innerHTML =
-      '<i class="fa-solid fa-spinner fa-spin"></i> Envoi en cours...';
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Envoi en cours...';
 
     const data = {
-      name: form.querySelector("#name").value,
-      email: form.querySelector("#email").value,
+      name:    form.querySelector("#name").value,
+      email:   form.querySelector("#email").value,
       message: `[Domaine: ${form.querySelector("#subject").value}]\n\n${form.querySelector("#message").value}`,
     };
 
@@ -191,65 +164,14 @@ if (form) {
         body: JSON.stringify(data),
       });
       if (res.ok) {
-        showNotification(
-          "success",
-          "Message envoyé !",
-          "Nous vous répondrons dans les 24–48h.",
-        );
+        showNotification("success", "Message envoyé !", "Nous vous répondrons dans les 24–48h.");
         form.reset();
       } else throw new Error("Server error");
     } catch {
-      showNotification(
-        "error",
-        "Erreur d'envoi",
-        "Veuillez nous contacter directement par téléphone.",
-      );
+      showNotification("error", "Erreur d'envoi", "Veuillez nous contacter directement par téléphone.");
     } finally {
       btn.disabled = false;
-      btn.innerHTML =
-        '<i class="fa-solid fa-paper-plane"></i> Envoyer la demande';
+      btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Envoyer la demande';
     }
   });
 }
-
-// ── Modal vidéo ───────────────────────────────────────────────
-const videoModal = document.getElementById("video-modal");
-const modalVideo = document.getElementById("modal-video");
-const videoModalClose = document.querySelector(".video-modal-close");
-
-const openVideoModal = (src) => {
-  if (!videoModal || !modalVideo) return;
-  modalVideo.src = src;
-  modalVideo.load();
-  modalVideo.play().catch(() => {});
-  videoModal.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
-};
-
-const closeVideoModal = () => {
-  if (!videoModal || !modalVideo) return;
-  modalVideo.pause();
-  modalVideo.src = "";
-  videoModal.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
-};
-
-document.querySelectorAll(".video-item").forEach((item) => {
-  item.addEventListener("click", () => {
-    const src = item.dataset.video;
-    if (src) openVideoModal(src);
-  });
-});
-
-videoModalClose?.addEventListener("click", closeVideoModal);
-videoModal?.addEventListener("click", (e) => {
-  if (e.target === videoModal) closeVideoModal();
-});
-document.addEventListener("keydown", (e) => {
-  if (
-    e.key === "Escape" &&
-    videoModal?.getAttribute("aria-hidden") === "false"
-  ) {
-    closeVideoModal();
-  }
-});
