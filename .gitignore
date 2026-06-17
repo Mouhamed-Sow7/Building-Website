@@ -1,0 +1,17 @@
+# Exclude heavy media files from git
+src/projects/
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# Common files to ignore
+.DS_Store
+Thumbs.db
+*.log
+node_modules/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

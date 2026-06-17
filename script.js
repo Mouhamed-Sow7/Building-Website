@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* ═══════════════════════════════════════════════════════════════
    ENTREPRISE SOW ET FRÈRES — script.js
    ═══════════════════════════════════════════════════════════════ */
@@ -32,6 +33,45 @@ window.addEventListener(
 );
 
 // ── Mobile nav ────────────────────────────────────────────────
+=======
+// Custom notification system
+const showNotification = (type, title, message, duration = 4000) => {
+  const container = document.getElementById("notifications");
+  if (!container) return;
+
+  const notification = document.createElement("div");
+  notification.className = `notification ${type}`;
+
+  const icon = type === "success" ? "✅" : "❌";
+
+  notification.innerHTML = `
+    <span class="notification-icon">${icon}</span>
+    <div class="notification-content">
+      <div class="notification-title">${title}</div>
+      <div class="notification-message">${message}</div>
+    </div>
+  `;
+
+  container.appendChild(notification);
+
+  // Trigger animation
+  requestAnimationFrame(() => {
+    notification.classList.add("show");
+  });
+
+  // Auto remove
+  setTimeout(() => {
+    notification.classList.remove("show");
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification);
+      }
+    }, 300);
+  }, duration);
+};
+
+// Mobile nav toggle
+>>>>>>> 7292a9eb6ba0b871a098eeadbb5b627bb1eff30a
 const navToggle = document.querySelector(".nav-toggle");
 const navList = document.querySelector(".nav-list");
 navToggle?.addEventListener("click", () => {
@@ -185,6 +225,7 @@ if (form) {
     };
 
     try {
+<<<<<<< HEAD
       const res = await fetch(BACKEND_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -203,6 +244,21 @@ if (form) {
         "error",
         "Erreur d'envoi",
         "Veuillez nous contacter directement par téléphone.",
+=======
+      form.querySelector('button[type="submit"]').disabled = true;
+      await new Promise((res) => setTimeout(res, 800));
+      showNotification(
+        "success",
+        "Message envoyé",
+        "Votre message a bien été envoyé."
+      );
+      form.reset();
+    } catch (err) {
+      showNotification(
+        "error",
+        "Erreur",
+        "Désolé, une erreur est survenue. Veuillez réessayer."
+>>>>>>> 7292a9eb6ba0b871a098eeadbb5b627bb1eff30a
       );
     } finally {
       btn.disabled = false;
@@ -241,6 +297,7 @@ document.querySelectorAll(".video-item").forEach((item) => {
   });
 });
 
+<<<<<<< HEAD
 videoModalClose?.addEventListener("click", closeVideoModal);
 videoModal?.addEventListener("click", (e) => {
   if (e.target === videoModal) closeVideoModal();
@@ -253,3 +310,237 @@ document.addEventListener("keydown", (e) => {
     closeVideoModal();
   }
 });
+=======
+if (sections.length) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible) setActiveLink("#" + visible.target.id);
+    },
+    {
+      root: null,
+      rootMargin: "0px 0px -50% 0px",
+      threshold: [0.15, 0.3, 0.6, 0.85],
+    }
+  );
+  sections.forEach(({ section }) => observer.observe(section));
+}
+
+// Simple carousel for "Réalisations"
+const projetsCarousel = document.querySelector("#projets .carousel");
+if (projetsCarousel) {
+  const track = projetsCarousel.querySelector(".carousel-track");
+  const slides = Array.from(track.children);
+  let currentIndex = 0;
+  let timerId;
+  const AUTOPLAY_MS = 3000; // autoplay speed (ms)
+  
+  // Mobile detection
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  const update = () => {
+    const width = projetsCarousel.clientWidth;
+    track.style.transform = `translateX(${-currentIndex * width}px)`;
+  };
+
+  const next = () => {
+    currentIndex = (currentIndex + 1) % slides.length;
+    update();
+  };
+  const prev = () => {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    update();
+  };
+
+  const startAuto = () => {
+    stopAuto();
+    if (slides.length > 1) timerId = setInterval(next, AUTOPLAY_MS);
+  };
+  const stopAuto = () => {
+    if (timerId) clearInterval(timerId);
+  };
+
+  projetsCarousel
+    .querySelector(".carousel-btn.next")
+    ?.addEventListener("click", () => {
+      stopAuto();
+      next();
+      startAuto();
+    });
+  projetsCarousel
+    .querySelector(".carousel-btn.prev")
+    ?.addEventListener("click", () => {
+      stopAuto();
+      prev();
+      startAuto();
+    });
+
+  // Keep layout in sync with container size
+  window.addEventListener("resize", update);
+  if (window.ResizeObserver) {
+    const ro = new ResizeObserver(() => update());
+    ro.observe(projetsCarousel);
+  }
+
+  // Pause when tab is hidden, resume when visible
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) stopAuto();
+    else startAuto();
+  });
+
+  // Ensure first layout after images and videos load
+  const imgs = track.querySelectorAll("img");
+  const videos = track.querySelectorAll("video");
+  let loaded = 0;
+  const totalMedia = imgs.length + videos.length;
+
+  const onMediaLoad = () => {
+    loaded += 1;
+    if (loaded >= totalMedia) requestAnimationFrame(update);
+  };
+
+  imgs.forEach((img) => {
+    if (img.complete) onMediaLoad();
+    else img.addEventListener("load", onMediaLoad, { once: true });
+  });
+
+  videos.forEach((video) => {
+    video.addEventListener("loadeddata", onMediaLoad, { once: true });
+    
+    // Set video attributes for mobile compatibility
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.setAttribute("webkit-playsinline", "true");
+    video.setAttribute("playsinline", "true");
+    video.setAttribute("preload", "metadata");
+    
+    // For mobile devices, don't autoplay by default
+    if (isMobile) {
+      video.autoplay = false;
+      
+      // Ensure video shows first frame
+      video.addEventListener("loadedmetadata", () => {
+        video.currentTime = 0.1; // Show first frame
+      });
+      
+      // Add a play button overlay for mobile
+      const playButton = document.createElement("div");
+      playButton.className = "video-play-button";
+      playButton.innerHTML = "▶";
+      
+      const card = video.closest(".project-card");
+      if (card) {
+        card.style.position = "relative";
+        card.appendChild(playButton);
+        
+        playButton.addEventListener("click", () => {
+          video.play();
+          playButton.style.display = "none";
+        });
+      }
+    } else {
+      // Desktop: try autoplay
+      video.autoplay = true;
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          video.currentTime = 0;
+          video.pause();
+        });
+      }
+    }
+  });
+
+  update();
+  startAuto();
+}
+
+// Lightbox for project images and videos
+(() => {
+  const lightbox = document.getElementById("lightbox");
+  if (!lightbox) return;
+  const imgEl = lightbox.querySelector("img");
+  const videoEl = lightbox.querySelector("video");
+  const captionEl = lightbox.querySelector(".lightbox-caption");
+  const closeBtn = lightbox.querySelector(".lightbox-close");
+
+  const open = (src, caption, isVideo = false) => {
+    // Hide both elements first
+    imgEl.style.display = "none";
+    videoEl.style.display = "none";
+
+    if (isVideo) {
+      videoEl.src = src;
+      videoEl.style.display = "block";
+      videoEl.play(); // Autoplay video in lightbox
+    } else {
+      imgEl.src = src;
+      imgEl.alt = caption || "";
+      imgEl.style.display = "block";
+    }
+
+    captionEl.textContent = caption || "";
+    lightbox.classList.add("open");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    lightbox.focus();
+  };
+
+  const close = () => {
+    lightbox.classList.remove("open");
+    lightbox.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+
+    // Hide both elements and clear sources
+    imgEl.style.display = "none";
+    videoEl.style.display = "none";
+
+    // Pause video and clear sources
+    if (videoEl.src) {
+      videoEl.pause();
+      videoEl.removeAttribute("src");
+    }
+    if (imgEl.src) {
+      imgEl.removeAttribute("src");
+    }
+  };
+
+  // Click handlers on project images and videos
+  document.querySelectorAll("#projets .project-card").forEach((card) => {
+    const image = card.querySelector("img");
+    const video = card.querySelector("video");
+    const caption = card.querySelector("figcaption")?.textContent?.trim();
+
+    if (image) {
+      image.style.cursor = "pointer";
+      image.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        open(image.src, caption, false);
+      });
+    }
+
+    if (video) {
+      video.style.cursor = "pointer";
+      video.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        open(video.src, caption, true);
+      });
+    }
+  });
+
+  // Close interactions
+  closeBtn?.addEventListener("click", close);
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) close();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+})();
+>>>>>>> 7292a9eb6ba0b871a098eeadbb5b627bb1eff30a
