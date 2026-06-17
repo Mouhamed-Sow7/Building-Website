@@ -1,546 +1,261 @@
-<<<<<<< HEAD
 /* ═══════════════════════════════════════════════════════════════
-   ENTREPRISE SOW ET FRÈRES — script.js
+   ENTREPRISE SOW ET FRÈRES — script.js (cleaned)
+   Unified script: notifications, header, nav, gallery, lightbox,
+   contact form and video modal.
    ═══════════════════════════════════════════════════════════════ */
 
-// ── Notifications ─────────────────────────────────────────────
-const showNotification = (type, title, message, duration = 4000) => {
-  const container = document.getElementById("notifications");
-  if (!container) return;
-  const n = document.createElement("div");
-  n.className = `notification ${type}`;
-  n.innerHTML = `
-    <div class="notification-content">
-      <div class="notification-title">${title}</div>
-      <div class="notification-message">${message}</div>
-    </div>`;
-  container.appendChild(n);
-  requestAnimationFrame(() => n.classList.add("show"));
-  setTimeout(() => {
-    n.classList.remove("show");
-    setTimeout(() => n.parentNode?.removeChild(n), 300);
-  }, duration);
-};
+(function () {
+  "use strict";
 
-// ── Header scroll ─────────────────────────────────────────────
-const header = document.querySelector(".site-header");
-window.addEventListener(
-  "scroll",
-  () => {
-    header?.classList.toggle("scrolled", window.scrollY > 4);
-  },
-  { passive: true },
-);
-
-// ── Mobile nav ────────────────────────────────────────────────
-=======
-// Custom notification system
-const showNotification = (type, title, message, duration = 4000) => {
-  const container = document.getElementById("notifications");
-  if (!container) return;
-
-  const notification = document.createElement("div");
-  notification.className = `notification ${type}`;
-
-  const icon = type === "success" ? "✅" : "❌";
-
-  notification.innerHTML = `
-    <span class="notification-icon">${icon}</span>
-    <div class="notification-content">
-      <div class="notification-title">${title}</div>
-      <div class="notification-message">${message}</div>
-    </div>
-  `;
-
-  container.appendChild(notification);
-
-  // Trigger animation
-  requestAnimationFrame(() => {
-    notification.classList.add("show");
-  });
-
-  // Auto remove
-  setTimeout(() => {
-    notification.classList.remove("show");
+  // ── Notifications ─────────────────────────────────────────────
+  const showNotification = (type, title, message, duration = 4000) => {
+    const container = document.getElementById("notifications");
+    if (!container) return;
+    const n = document.createElement("div");
+    n.className = `notification ${type}`;
+    n.innerHTML = `
+      <div class="notification-content">
+        <div class="notification-title">${title}</div>
+        <div class="notification-message">${message}</div>
+      </div>
+    `;
+    container.appendChild(n);
+    requestAnimationFrame(() => n.classList.add("show"));
     setTimeout(() => {
-      if (notification.parentNode) {
-        notification.parentNode.removeChild(notification);
-      }
-    }, 300);
-  }, duration);
-};
+      n.classList.remove("show");
+      setTimeout(() => n.remove(), 300);
+    }, duration);
+  };
 
-// Mobile nav toggle
->>>>>>> 7292a9eb6ba0b871a098eeadbb5b627bb1eff30a
-const navToggle = document.querySelector(".nav-toggle");
-const navList = document.querySelector(".nav-list");
-navToggle?.addEventListener("click", () => {
-  const open = navList.classList.toggle("open");
-  navToggle.setAttribute("aria-expanded", String(open));
-});
-document.querySelectorAll(".nav-list a").forEach((a) => {
-  a.addEventListener("click", () => {
-    navList.classList.remove("open");
-    navToggle?.setAttribute("aria-expanded", "false");
-  });
-});
-
-// ── Footer year ───────────────────────────────────────────────
-const yearEl = document.getElementById("year");
-if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-// ── Scrollspy ─────────────────────────────────────────────────
-const navLinks = Array.from(
-  document.querySelectorAll('.nav-list a[href^="#"]'),
-);
-const setActive = (hash) =>
-  navLinks.forEach((a) => {
-    const isActive = a.getAttribute("href") === hash;
-    a.classList.toggle("active", isActive);
-    isActive
-      ? a.setAttribute("aria-current", "page")
-      : a.removeAttribute("aria-current");
-  });
-if (navLinks.length) {
-  const sections = navLinks
-    .map((a) => document.querySelector(a.getAttribute("href")))
-    .filter(Boolean);
-  const obs = new IntersectionObserver(
-    (entries) => {
-      const visible = entries
-        .filter((e) => e.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible) setActive("#" + visible.target.id);
-    },
-    { rootMargin: "0px 0px -45% 0px", threshold: [0.1, 0.4, 0.7] },
+  // ── Header scroll ─────────────────────────────────────────────
+  const header = document.querySelector(".site-header");
+  window.addEventListener(
+    "scroll",
+    () => header?.classList.toggle("scrolled", window.scrollY > 4),
+    { passive: true },
   );
-  sections.forEach((s) => obs.observe(s));
-}
 
-// ── Galerie — filtres ─────────────────────────────────────────
-const filterBtns = document.querySelectorAll(".filter-btn");
-const galleryItems = document.querySelectorAll(".gallery-item");
-
-filterBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    filterBtns.forEach((b) => {
-      b.classList.remove("active");
-      b.setAttribute("aria-selected", "false");
-    });
-    btn.classList.add("active");
-    btn.setAttribute("aria-selected", "true");
-    const filter = btn.dataset.filter;
-    galleryItems.forEach((item) => {
-      const match = filter === "all" || item.dataset.cat === filter;
-      item.classList.toggle("hidden", !match);
+  // ── Mobile nav ────────────────────────────────────────────────
+  const navToggle = document.querySelector(".nav-toggle");
+  const navList = document.querySelector(".nav-list");
+  navToggle?.addEventListener("click", () => {
+    const open = navList.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", String(open));
+  });
+  document.querySelectorAll(".nav-list a").forEach((a) => {
+    a.addEventListener("click", () => {
+      navList.classList.remove("open");
+      navToggle?.setAttribute("aria-expanded", "false");
     });
   });
-});
 
-// ── Lightbox ──────────────────────────────────────────────────
-const lightbox = document.getElementById("lightbox");
-const lbImg = lightbox?.querySelector("img");
-const lbCaption = lightbox?.querySelector(".lightbox-caption");
-const lbClose = lightbox?.querySelector(".lightbox-close");
+  // ── Footer year ───────────────────────────────────────────────
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-const openLightbox = (src, caption) => {
-  if (!lightbox) return;
-  lbImg.src = src;
-  lbImg.alt = caption || "";
-  lbCaption.textContent = caption || "";
-  lightbox.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
-  lightbox.focus();
-};
-const closeLightbox = () => {
-  if (!lightbox) return;
-  lightbox.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
-  lbImg.removeAttribute("src");
-};
-
-document.querySelectorAll(".gallery-item").forEach((item) => {
-  const img = item.querySelector("img");
-  const caption = item.querySelector("figcaption")?.textContent?.trim();
-  if (!img) return;
-  img.style.cursor = "pointer";
-  img.addEventListener("click", () => openLightbox(img.src, caption));
-});
-lbClose?.addEventListener("click", closeLightbox);
-lightbox?.addEventListener("click", (e) => {
-  if (e.target === lightbox) closeLightbox();
-});
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeLightbox();
-});
-
-// ── Formulaire contact ────────────────────────────────────────
-// ⚙️  CONFIGURATION — Remplace par ton endpoint Render/Node.js
-const BACKEND_URL = "https://portfolio-2nd-x3kv.onrender.com/send";
-
-const form = document.getElementById("contact-form");
-if (form) {
-  const validators = {
-    name: (v) =>
-      v.trim().length >= 2 || "Veuillez entrer votre nom (min. 2 caractères).",
-    email: (v) => /.+@.+\..+/.test(v) || "Veuillez entrer un email valide.",
-    subject: (v) => v.trim().length >= 2 || "Veuillez sélectionner un domaine.",
-    message: (v) =>
-      v.trim().length >= 10 ||
-      "Votre message est trop court (min. 10 caractères).",
-  };
-
-  const attachValidation = (id) => {
-    const input = form.querySelector(`#${id}`);
-    const error = input?.parentElement?.querySelector(".error");
-    if (!input || !error) return null;
-    const validate = () => {
-      const result = validators[id]?.(input.value);
-      error.textContent = result === true || result === undefined ? "" : result;
-      return result === true || result === undefined;
-    };
-    input.addEventListener("input", validate);
-    input.addEventListener("blur", validate);
-    return validate;
-  };
-
-  const fieldValidators = ["name", "email", "subject", "message"]
-    .map(attachValidation)
-    .filter(Boolean);
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const allValid = fieldValidators.every((fn) => fn());
-    if (!allValid) return;
-
-    const btn = form.querySelector('button[type="submit"]');
-    btn.disabled = true;
-    btn.innerHTML =
-      '<i class="fa-solid fa-spinner fa-spin"></i> Envoi en cours...';
-
-    const data = {
-      name: form.querySelector("#name").value,
-      email: form.querySelector("#email").value,
-      message: `[Domaine: ${form.querySelector("#subject").value}]\n\n${form.querySelector("#message").value}`,
-    };
-
-    try {
-<<<<<<< HEAD
-      const res = await fetch(BACKEND_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+  // ── Scrollspy ─────────────────────────────────────────────────
+  const navLinks = Array.from(
+    document.querySelectorAll('.nav-list a[href^="#"]'),
+  );
+  if (navLinks.length) {
+    const sections = navLinks
+      .map((a) => document.querySelector(a.getAttribute("href")))
+      .filter(Boolean);
+    const setActive = (hash) =>
+      navLinks.forEach((a) => {
+        const isActive = a.getAttribute("href") === hash;
+        a.classList.toggle("active", isActive);
+        isActive
+          ? a.setAttribute("aria-current", "page")
+          : a.removeAttribute("aria-current");
       });
-      if (res.ok) {
-        showNotification(
-          "success",
-          "Message envoyé !",
-          "Nous vous répondrons dans les 24–48h.",
-        );
-        form.reset();
-      } else throw new Error("Server error");
-    } catch {
-      showNotification(
-        "error",
-        "Erreur d'envoi",
-        "Veuillez nous contacter directement par téléphone.",
-=======
-      form.querySelector('button[type="submit"]').disabled = true;
-      await new Promise((res) => setTimeout(res, 800));
-      showNotification(
-        "success",
-        "Message envoyé",
-        "Votre message a bien été envoyé."
-      );
-      form.reset();
-    } catch (err) {
-      showNotification(
-        "error",
-        "Erreur",
-        "Désolé, une erreur est survenue. Veuillez réessayer."
->>>>>>> 7292a9eb6ba0b871a098eeadbb5b627bb1eff30a
-      );
-    } finally {
-      btn.disabled = false;
-      btn.innerHTML =
-        '<i class="fa-solid fa-paper-plane"></i> Envoyer la demande';
-    }
-  });
-}
-
-// ── Modal vidéo ───────────────────────────────────────────────
-const videoModal = document.getElementById("video-modal");
-const modalVideo = document.getElementById("modal-video");
-const videoModalClose = document.querySelector(".video-modal-close");
-
-const openVideoModal = (src) => {
-  if (!videoModal || !modalVideo) return;
-  modalVideo.src = src;
-  modalVideo.load();
-  modalVideo.play().catch(() => {});
-  videoModal.setAttribute("aria-hidden", "false");
-  document.body.style.overflow = "hidden";
-};
-
-const closeVideoModal = () => {
-  if (!videoModal || !modalVideo) return;
-  modalVideo.pause();
-  modalVideo.src = "";
-  videoModal.setAttribute("aria-hidden", "true");
-  document.body.style.overflow = "";
-};
-
-document.querySelectorAll(".video-item").forEach((item) => {
-  item.addEventListener("click", () => {
-    const src = item.dataset.video;
-    if (src) openVideoModal(src);
-  });
-});
-
-<<<<<<< HEAD
-videoModalClose?.addEventListener("click", closeVideoModal);
-videoModal?.addEventListener("click", (e) => {
-  if (e.target === videoModal) closeVideoModal();
-});
-document.addEventListener("keydown", (e) => {
-  if (
-    e.key === "Escape" &&
-    videoModal?.getAttribute("aria-hidden") === "false"
-  ) {
-    closeVideoModal();
-  }
-});
-=======
-if (sections.length) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      const visible = entries
-        .filter((e) => e.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (visible) setActiveLink("#" + visible.target.id);
-    },
-    {
-      root: null,
-      rootMargin: "0px 0px -50% 0px",
-      threshold: [0.15, 0.3, 0.6, 0.85],
-    }
-  );
-  sections.forEach(({ section }) => observer.observe(section));
-}
-
-// Simple carousel for "Réalisations"
-const projetsCarousel = document.querySelector("#projets .carousel");
-if (projetsCarousel) {
-  const track = projetsCarousel.querySelector(".carousel-track");
-  const slides = Array.from(track.children);
-  let currentIndex = 0;
-  let timerId;
-  const AUTOPLAY_MS = 3000; // autoplay speed (ms)
-  
-  // Mobile detection
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-
-  const update = () => {
-    const width = projetsCarousel.clientWidth;
-    track.style.transform = `translateX(${-currentIndex * width}px)`;
-  };
-
-  const next = () => {
-    currentIndex = (currentIndex + 1) % slides.length;
-    update();
-  };
-  const prev = () => {
-    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-    update();
-  };
-
-  const startAuto = () => {
-    stopAuto();
-    if (slides.length > 1) timerId = setInterval(next, AUTOPLAY_MS);
-  };
-  const stopAuto = () => {
-    if (timerId) clearInterval(timerId);
-  };
-
-  projetsCarousel
-    .querySelector(".carousel-btn.next")
-    ?.addEventListener("click", () => {
-      stopAuto();
-      next();
-      startAuto();
-    });
-  projetsCarousel
-    .querySelector(".carousel-btn.prev")
-    ?.addEventListener("click", () => {
-      stopAuto();
-      prev();
-      startAuto();
-    });
-
-  // Keep layout in sync with container size
-  window.addEventListener("resize", update);
-  if (window.ResizeObserver) {
-    const ro = new ResizeObserver(() => update());
-    ro.observe(projetsCarousel);
+    const obs = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive("#" + visible.target.id);
+      },
+      { rootMargin: "0px 0px -45% 0px", threshold: [0.1, 0.4, 0.7] },
+    );
+    sections.forEach((s) => obs.observe(s));
   }
 
-  // Pause when tab is hidden, resume when visible
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) stopAuto();
-    else startAuto();
-  });
-
-  // Ensure first layout after images and videos load
-  const imgs = track.querySelectorAll("img");
-  const videos = track.querySelectorAll("video");
-  let loaded = 0;
-  const totalMedia = imgs.length + videos.length;
-
-  const onMediaLoad = () => {
-    loaded += 1;
-    if (loaded >= totalMedia) requestAnimationFrame(update);
-  };
-
-  imgs.forEach((img) => {
-    if (img.complete) onMediaLoad();
-    else img.addEventListener("load", onMediaLoad, { once: true });
-  });
-
-  videos.forEach((video) => {
-    video.addEventListener("loadeddata", onMediaLoad, { once: true });
-    
-    // Set video attributes for mobile compatibility
-    video.muted = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.setAttribute("webkit-playsinline", "true");
-    video.setAttribute("playsinline", "true");
-    video.setAttribute("preload", "metadata");
-    
-    // For mobile devices, don't autoplay by default
-    if (isMobile) {
-      video.autoplay = false;
-      
-      // Ensure video shows first frame
-      video.addEventListener("loadedmetadata", () => {
-        video.currentTime = 0.1; // Show first frame
+  // ── Galerie — filtres ─────────────────────────────────────────
+  const filterBtns = document.querySelectorAll(".filter-btn");
+  const galleryItems = document.querySelectorAll(".gallery-item");
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach((b) => {
+        b.classList.remove("active");
+        b.setAttribute("aria-selected", "false");
       });
-      
-      // Add a play button overlay for mobile
-      const playButton = document.createElement("div");
-      playButton.className = "video-play-button";
-      playButton.innerHTML = "▶";
-      
-      const card = video.closest(".project-card");
-      if (card) {
-        card.style.position = "relative";
-        card.appendChild(playButton);
-        
-        playButton.addEventListener("click", () => {
-          video.play();
-          playButton.style.display = "none";
-        });
-      }
-    } else {
-      // Desktop: try autoplay
-      video.autoplay = true;
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          video.currentTime = 0;
-          video.pause();
-        });
-      }
-    }
+      btn.classList.add("active");
+      btn.setAttribute("aria-selected", "true");
+      const filter = btn.dataset.filter;
+      galleryItems.forEach((item) => {
+        const match = filter === "all" || item.dataset.cat === filter;
+        item.classList.toggle("hidden", !match);
+      });
+    });
   });
 
-  update();
-  startAuto();
-}
-
-// Lightbox for project images and videos
-(() => {
+  // ── Lightbox ──────────────────────────────────────────────────
   const lightbox = document.getElementById("lightbox");
-  if (!lightbox) return;
-  const imgEl = lightbox.querySelector("img");
-  const videoEl = lightbox.querySelector("video");
-  const captionEl = lightbox.querySelector(".lightbox-caption");
-  const closeBtn = lightbox.querySelector(".lightbox-close");
+  const lbImg = lightbox?.querySelector("img");
+  const lbCaption = lightbox?.querySelector(".lightbox-caption");
+  const lbClose = lightbox?.querySelector(".lightbox-close");
 
-  const open = (src, caption, isVideo = false) => {
-    // Hide both elements first
-    imgEl.style.display = "none";
-    videoEl.style.display = "none";
-
-    if (isVideo) {
-      videoEl.src = src;
-      videoEl.style.display = "block";
-      videoEl.play(); // Autoplay video in lightbox
-    } else {
-      imgEl.src = src;
-      imgEl.alt = caption || "";
-      imgEl.style.display = "block";
-    }
-
-    captionEl.textContent = caption || "";
-    lightbox.classList.add("open");
+  const openLightbox = (src, caption) => {
+    if (!lightbox || !lbImg) return;
+    lbImg.src = src;
+    lbImg.alt = caption || "";
+    lbCaption.textContent = caption || "";
     lightbox.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
     lightbox.focus();
   };
-
-  const close = () => {
-    lightbox.classList.remove("open");
+  const closeLightbox = () => {
+    if (!lightbox || !lbImg) return;
     lightbox.setAttribute("aria-hidden", "true");
     document.body.style.overflow = "";
-
-    // Hide both elements and clear sources
-    imgEl.style.display = "none";
-    videoEl.style.display = "none";
-
-    // Pause video and clear sources
-    if (videoEl.src) {
-      videoEl.pause();
-      videoEl.removeAttribute("src");
-    }
-    if (imgEl.src) {
-      imgEl.removeAttribute("src");
-    }
+    lbImg.removeAttribute("src");
   };
 
-  // Click handlers on project images and videos
-  document.querySelectorAll("#projets .project-card").forEach((card) => {
-    const image = card.querySelector("img");
-    const video = card.querySelector("video");
-    const caption = card.querySelector("figcaption")?.textContent?.trim();
-
-    if (image) {
-      image.style.cursor = "pointer";
-      image.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        open(image.src, caption, false);
-      });
-    }
-
-    if (video) {
-      video.style.cursor = "pointer";
-      video.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        open(video.src, caption, true);
-      });
-    }
+  document.querySelectorAll(".gallery-item").forEach((item) => {
+    const img = item.querySelector("img");
+    const caption = item.querySelector("figcaption")?.textContent?.trim();
+    if (!img) return;
+    img.style.cursor = "pointer";
+    img.addEventListener("click", () => openLightbox(img.src, caption));
+  });
+  lbClose?.addEventListener("click", closeLightbox);
+  lightbox?.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
   });
 
-  // Close interactions
-  closeBtn?.addEventListener("click", close);
-  lightbox.addEventListener("click", (e) => {
-    if (e.target === lightbox) close();
+  // ── Formulaire contact ────────────────────────────────────────
+  // ⚙️  CONFIGURATION — Remplace par ton endpoint Render/Node.js
+  const BACKEND_URL = "https://portfolio-2nd-x3kv.onrender.com/send";
+
+  const form = document.getElementById("contact-form");
+  if (form) {
+    const validators = {
+      name: (v) =>
+        v.trim().length >= 2 ||
+        "Veuillez entrer votre nom (min. 2 caractères).",
+      email: (v) => /.+@.+\..+/.test(v) || "Veuillez entrer un email valide.",
+      subject: (v) =>
+        v.trim().length >= 2 || "Veuillez sélectionner un domaine.",
+      message: (v) =>
+        v.trim().length >= 10 ||
+        "Votre message est trop court (min. 10 caractères).",
+    };
+
+    const attachValidation = (id) => {
+      const input = form.querySelector(`#${id}`);
+      const error = input?.parentElement?.querySelector(".error");
+      if (!input || !error) return null;
+      const validate = () => {
+        const result = validators[id]?.(input.value);
+        error.textContent =
+          result === true || result === undefined ? "" : result;
+        return result === true || result === undefined;
+      };
+      input.addEventListener("input", validate);
+      input.addEventListener("blur", validate);
+      return validate;
+    };
+
+    const fieldValidators = ["name", "email", "subject", "message"]
+      .map(attachValidation)
+      .filter(Boolean);
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const allValid = fieldValidators.every((fn) => fn());
+      if (!allValid) return;
+
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.innerHTML =
+        '<i class="fa-solid fa-spinner fa-spin"></i> Envoi en cours...';
+
+      const data = {
+        name: form.querySelector("#name").value,
+        email: form.querySelector("#email").value,
+        message: `[Domaine: ${form.querySelector("#subject").value}]\n\n${form.querySelector("#message").value}`,
+      };
+
+      try {
+        const res = await fetch(BACKEND_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (res.ok) {
+          showNotification(
+            "success",
+            "Message envoyé !",
+            "Nous vous répondrons dans les 24–48h.",
+          );
+          form.reset();
+        } else throw new Error("Server error");
+      } catch (err) {
+        showNotification(
+          "error",
+          "Erreur d'envoi",
+          "Veuillez nous contacter directement par téléphone.",
+        );
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML =
+          '<i class="fa-solid fa-paper-plane"></i> Envoyer la demande';
+      }
+    });
+  }
+
+  // ── Modal vidéo ───────────────────────────────────────────────
+  const videoModal = document.getElementById("video-modal");
+  const modalVideo = document.getElementById("modal-video");
+  const videoModalClose = document.querySelector(".video-modal-close");
+
+  const openVideoModal = (src) => {
+    if (!videoModal || !modalVideo) return;
+    modalVideo.src = src;
+    modalVideo.load();
+    modalVideo.play().catch(() => {});
+    videoModal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeVideoModal = () => {
+    if (!videoModal || !modalVideo) return;
+    modalVideo.pause();
+    modalVideo.src = "";
+    videoModal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  };
+
+  document.querySelectorAll(".video-item").forEach((item) => {
+    item.addEventListener("click", () => {
+      const src = item.dataset.video;
+      if (src) openVideoModal(src);
+    });
   });
+
+  videoModalClose?.addEventListener("click", closeVideoModal);
+  videoModal?.addEventListener("click", (e) => {
+    if (e.target === videoModal) closeVideoModal();
+  });
+
+  // Global key handling for Escape
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") close();
+    if (e.key === "Escape") {
+      if (lightbox && lightbox.getAttribute("aria-hidden") === "false")
+        closeLightbox();
+      if (videoModal && videoModal.getAttribute("aria-hidden") === "false")
+        closeVideoModal();
+    }
   });
 })();
->>>>>>> 7292a9eb6ba0b871a098eeadbb5b627bb1eff30a
