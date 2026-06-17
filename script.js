@@ -81,24 +81,6 @@
     sections.forEach((s) => obs.observe(s));
   }
 
-  // ── Galerie — filtres ─────────────────────────────────────────
-  const filterBtns = document.querySelectorAll(".filter-btn");
-  const galleryItems = document.querySelectorAll(".gallery-item");
-  filterBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      filterBtns.forEach((b) => {
-        b.classList.remove("active");
-        b.setAttribute("aria-selected", "false");
-      });
-      btn.classList.add("active");
-      btn.setAttribute("aria-selected", "true");
-      const filter = btn.dataset.filter;
-      galleryItems.forEach((item) => {
-        const match = filter === "all" || item.dataset.cat === filter;
-        item.classList.toggle("hidden", !match);
-      });
-    });
-  });
 
   // ── Lightbox ──────────────────────────────────────────────────
   const lightbox = document.getElementById("lightbox");
@@ -122,7 +104,7 @@
     lbImg.removeAttribute("src");
   };
 
-  document.querySelectorAll(".gallery-item").forEach((item) => {
+  document.querySelectorAll(".gi").forEach((item) => {
     const img = item.querySelector("img");
     const caption = item.querySelector("figcaption")?.textContent?.trim();
     if (!img) return;
@@ -257,5 +239,45 @@
       if (videoModal && videoModal.getAttribute("aria-hidden") === "false")
         closeVideoModal();
     }
+  });
+
+  // ── Galerie paginée (carrousel par catégorie) ──────────────────
+  document.querySelectorAll(".gallery-category").forEach((category) => {
+    const wrapper = category.querySelector(".pgallery-wrapper");
+    const track = category.querySelector(".pgallery-track");
+    const pages = Array.from(category.querySelectorAll(".pgallery-page"));
+    if (!wrapper || !track || !pages.length) return;
+
+    const prevBtn = wrapper.querySelector(".pgallery-arrow.prev");
+    const nextBtn = wrapper.querySelector(".pgallery-arrow.next");
+    const dotsContainer = category.querySelector(".pgallery-dots");
+    let current = 0;
+
+    const dots = pages.map((_, i) => {
+      const dot = document.createElement("button");
+      dot.type = "button";
+      dot.className = "dot" + (i === 0 ? " active" : "");
+      dot.setAttribute("aria-label", `Page ${i + 1}`);
+      dot.addEventListener("click", () => goTo(i));
+      dotsContainer?.appendChild(dot);
+      return dot;
+    });
+
+    function update() {
+      track.style.transform = `translateX(-${current * 100}%)`;
+      if (prevBtn) prevBtn.disabled = current === 0;
+      if (nextBtn) nextBtn.disabled = current === pages.length - 1;
+      dots.forEach((d, i) => d.classList.toggle("active", i === current));
+    }
+
+    function goTo(i) {
+      current = Math.max(0, Math.min(pages.length - 1, i));
+      update();
+    }
+
+    prevBtn?.addEventListener("click", () => goTo(current - 1));
+    nextBtn?.addEventListener("click", () => goTo(current + 1));
+
+    update();
   });
 })();

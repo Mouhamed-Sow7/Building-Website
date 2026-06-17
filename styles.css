@@ -459,68 +459,131 @@ button {
   gap: 10px;
 }
 
-/* ═══════ GALERIE ═══════ */
-.gallery-filters {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 32px;
-  justify-content: center;
+/* ═══════ GALERIE (catégories + carrousel paginé) ═══════ */
+.gallery-category {
+  margin-bottom: 48px;
 }
-.filter-btn {
-  padding: 8px 20px;
+.gallery-category:last-of-type {
+  margin-bottom: 0;
+}
+.cat-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.25rem;
+  color: var(--green);
+  margin-bottom: 20px;
+}
+.cat-title i {
+  color: var(--gold);
+}
+.pgallery-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.pgallery-viewport {
+  flex: 1;
+  overflow: hidden;
+}
+.pgallery-track {
+  display: flex;
+  transition: transform 0.4s ease;
+}
+.pgallery-page {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.pgallery-arrow {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
   border: 2px solid var(--line);
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 600;
   background: #fff;
-  color: var(--muted);
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   transition: all var(--transition);
 }
-.filter-btn.active,
-.filter-btn:hover {
+.pgallery-arrow:hover:not(:disabled) {
   background: var(--green);
   color: #fff;
   border-color: var(--green);
 }
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
+.pgallery-arrow:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
-.gallery-item {
+.pgallery-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 18px;
+}
+.pgallery-dots .dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--line);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.pgallery-dots .dot.active {
+  width: 22px;
+  border-radius: 4px;
+  background: var(--green);
+}
+.gi {
   border-radius: var(--radius);
   overflow: hidden;
   position: relative;
   cursor: pointer;
   aspect-ratio: 4/3;
 }
-.gallery-item img {
+.gi img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
 }
-.gallery-item:hover img {
+.gi:hover img {
   transform: scale(1.06);
 }
-.gallery-item figcaption {
+.gi figcaption {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
   color: #fff;
-  font-size: 0.82rem;
-  padding: 28px 14px 12px;
+  font-size: 0.78rem;
+  padding: 26px 12px 10px;
   transform: translateY(100%);
   transition: transform 0.3s ease;
 }
-.gallery-item:hover figcaption {
+.gi:hover figcaption {
   transform: translateY(0);
 }
-.gallery-item.hidden {
-  display: none;
+.video-thumb {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--green), var(--green-mid));
+  transition: transform 0.4s ease;
+}
+.gi:hover .video-thumb {
+  transform: scale(1.06);
 }
 .gallery-note {
   text-align: center;
@@ -1155,6 +1218,7 @@ textarea {
     padding: 24px;
     gap: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 999;
   }
   .nav-list.open {
     display: flex;
@@ -1195,15 +1259,40 @@ textarea {
   .hero-stats {
     gap: 28px;
   }
+  .digital-inner {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .pgallery-page {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 7px;
+  }
+  .pgallery-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
+  .cat-title {
+    font-size: 1.1rem;
+  }
 }
 @media (max-width: 480px) {
   .section {
-    padding: 56px 0;
-  }
-  .gallery-grid {
-    grid-template-columns: 1fr 1fr;
+    padding: 48px 0;
   }
   .about-values {
+    grid-template-columns: 1fr;
+  }
+  .pgallery-page {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .activities-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 360px) {
+  .pgallery-page {
     grid-template-columns: 1fr;
   }
 }
